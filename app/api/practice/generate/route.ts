@@ -3,6 +3,8 @@ import { getConceptMasteries, getDatabase } from "@/lib/db";
 import { generateTargetedQuestion } from "@/lib/llm";
 import conceptsData from "@/data/concepts.json";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => ({}));

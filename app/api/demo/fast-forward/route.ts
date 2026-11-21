@@ -3,6 +3,8 @@ import { getDatabase, saveDatabase, getConceptMasteries } from "@/lib/db";
 import { calculatePredictedExamScore } from "@/lib/exam-score";
 import conceptsData from "@/data/concepts.json";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => ({}));

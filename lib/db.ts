@@ -1,9 +1,27 @@
 import fs from "fs";
 import path from "path";
+import os from "os";
 import { AppDatabase, ConceptMastery, MisconceptionLog, QuestionAttempt, Student } from "@/types";
 import conceptsData from "@/data/concepts.json";
 
-const DB_FILE_PATH = path.join(process.cwd(), "data", "store.json");
+// In-memory global singleton for serverless container persistence across requests
+const globalForDb = globalThis as unknown as {
+  __constellationDb?: AppDatabase;
+};
+
+// Determine appropriate storage file path
+// In Vercel serverless functions, process.cwd() is read-only at runtime.
+// os.tmpdir() (/tmp) is the designated writable directory in AWS Lambda / Vercel.
+function getWritableDbPath(): string {
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return path.join(os.tmpdir(), "constellation_store.json");
+  }
+  return path.join(process.cwd(), "data", "store.json");
+}
+
+function getBundledSeedDbPath(): string {
+  return path.join(process.cwd(), "data", "store.json");
+}
 
 const DEFAULT_PRIOR_MASTERY = 0.20; // Initial prior probability for BKT
 const DEFAULT_EASE_FACTOR = 2.5;
@@ -46,34 +64,71 @@ function initializeEmptyDatabase(): AppDatabase {
 }
 
 export function getDatabase(): AppDatabase {
+  // 1. Fast path: return in-memory cached instance if already initialized in this process
+  if (globalForDb.__constellationDb) {
+    return globalForDb.__constellationDb;
+  }
+
+  const writablePath = getWritableDbPath();
+  const bundledSeedPath = getBundledSeedDbPath();
+
+  // 2. Try loading from writable runtime path (e.g. /tmp on Vercel or data/store.json locally)
   try {
-    if (!fs.existsSync(DB_FILE_PATH)) {
-      const initialDb = initializeEmptyDatabase();
-      saveDatabase(initialDb);
-      return initialDb;
+    if (fs.existsSync(writablePath)) {
+      const raw = fs.readFileSync(writablePath, "utf-8");
+      const parsed: AppDatabase = JSON.parse(raw);
+      if (parsed && Array.isArray(parsed.students) && parsed.students.length > 0) {
+        globalForDb.__constellationDb = parsed;
+        return parsed;
+      }
     }
-    const raw = fs.readFileSync(DB_FILE_PATH, "utf-8");
-    const parsed: AppDatabase = JSON.parse(raw);
-    return parsed;
+  } catch (err) {
+    console.warn("Could not read from writable path, falling back to bundled seed:", err);
+  }
+
+  // 3. Fallback: load bundled seed database from project root (read-only safe)
+  try {
+    if (fs.existsSync(bundledSeedPath)) {
+      const raw = fs.readFileSync(bundledSeedPath, "utf-8");
+      const parsed: AppDatabase = JSON.parse(raw);
+      if (parsed && Array.isArray(parsed.students) && parsed.students.length > 0) {
+        globalForDb.__constellationDb = parsed;
+        // Attempt to copy seed to writable path for persistence across warm invocations
+        trySaveToDisk(writablePath, parsed);
+        return parsed;
+      }
+    }
+  } catch (err) {
+    console.warn("Could not read bundled seed store.json:", err);
+  }
+
+  // 4. Fallback: fresh initialized database
+  const initialDb = initializeEmptyDatabase();
+  globalForDb.__constellationDb = initialDb;
+  trySaveToDisk(writablePath, initialDb);
+  return initialDb;
+}
+
+function trySaveToDisk(filePath: string, db: AppDatabase): void {
+  try {
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(filePath, JSON.stringify(db, null, 2), "utf-8");
   } catch (error) {
-    console.error("Error reading database, resetting to fallback initial:", error);
-    const initialDb = initializeEmptyDatabase();
-    saveDatabase(initialDb);
-    return initialDb;
+    // Gracefully catch read-only filesystem or ephemeral quota errors in serverless
+    // The in-memory global singleton ensures the application continues working without throwing a 500 error
+    console.warn(`[Storage] Running in-memory mode; filesystem write skipped:`, error);
   }
 }
 
 export function saveDatabase(db: AppDatabase): void {
-  try {
-    const dir = path.dirname(DB_FILE_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    // Direct write to avoid Windows OneDrive rename lock issues
-    fs.writeFileSync(DB_FILE_PATH, JSON.stringify(db, null, 2), "utf-8");
-  } catch (error) {
-    console.error("Error saving database:", error);
-  }
+  // Always update in-memory singleton
+  globalForDb.__constellationDb = db;
+
+  const writablePath = getWritableDbPath();
+  trySaveToDisk(writablePath, db);
 }
 
 export function getStudent(id: string): Student | undefined {

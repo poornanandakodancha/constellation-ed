@@ -6,6 +6,8 @@ import conceptsData from "@/data/concepts.json";
 import misconceptionsData from "@/data/misconceptions.json";
 import { Misconception } from "@/types";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     let db = getDatabase();

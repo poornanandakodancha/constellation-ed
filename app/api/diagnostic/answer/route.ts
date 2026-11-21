@@ -13,6 +13,8 @@ import { calculateSM2 } from "@/lib/sm2";
 import { checkDiagnosticStoppingCriterion, selectNextDiagnosticQuestion } from "@/lib/diagnostic";
 import { calculatePredictedExamScore } from "@/lib/exam-score";
 import { detectMisconception } from "@/lib/llm";
+
+export const dynamic = "force-dynamic";
 import questionsData from "@/data/questions.json";
 import misconceptionsData from "@/data/misconceptions.json";
 import { Misconception, Question } from "@/types";

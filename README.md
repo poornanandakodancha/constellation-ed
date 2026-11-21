@@ -1,121 +1,373 @@
 # 🌌 ConstellationEd
 
 > **Adaptive Exam-Prep Tutor with a Deep Cognitive Learner Model**  
-> *Syllabus: Class 10 Physics — Chapter: "Electricity"*
+> *Target Syllabus: Class 10 Physics — Chapter: "Electricity" (CBSE / NCERT)*
 
-ConstellationEd visualizes a student's cognitive state as a **living night sky**. Every concept is a star whose brightness reflects empirical mastery probability. Prerequisite dependencies are glowing constellation lines. Active conceptual misconceptions erupt as **pulsating red solar flares**, and forgetting curve decay causes stars to dim and pulse softly until reviewed with **SM-2 spaced repetition**.
-
----
-
-## 🚀 Key Features
-
-### 1. 🌟 Concept Graph (29 Concepts DAG)
-- Complete coverage of CBSE / NCERT Class 10 Physics (*Electricity*).
-- Spans 7 pedagogical clusters:
-  1. **Electrostatics & Charge** (`electric_charge`, `conductors_insulators`, `coulombs_law_concept`)
-  2. **Electric Current & Circuit** (`electric_current`, `electric_circuit`, `ammeter_measurement`, `drift_velocity_electron_flow`)
-  3. **Potential Difference** (`electric_potential`, `potential_difference`, `voltmeter_measurement`, `cell_and_emf`)
-  4. **Ohm's Law & Resistance** (`ohms_law`, `v_i_graph`, `electrical_resistance`, `factors_affecting_resistance`, `resistivity`, `temperature_dependence`)
-  5. **Series & Parallel Combinations** (`series_circuits`, `series_equivalent_resistance`, `parallel_circuits`, `parallel_equivalent_resistance`, `series_vs_parallel_comparison`)
-  6. **Heating Effect & Energy** (`joules_law_of_heating`, `heating_applications`, `electric_energy_kwh`)
-  7. **Electric Power & Domestic Safety** (`electric_power_formulas`, `bulb_power_ratings`, `electric_fuse_safety`, `domestic_wiring_earthing`)
-
-### 2. 🧠 Bayesian Knowledge Tracing (BKT) with Prerequisite Cascades
-- Implements standard 4-parameter BKT ($P(L_0), T, s, g$) with slip probability ($s = 0.10$) and guess probability ($g = 0.25$).
-- **Bidirectional Prerequisite Propagation**:
-  - A failure on an advanced topic like *Ohm's Law* dampens confidence in foundational prerequisites (*Electric Current*, *Potential Difference*) proportionally ($\gamma = 0.35$).
-  - Solving advanced topics reinforces foundations ($\gamma_{\text{boost}} = 0.15$).
-- **Live Predicted Exam Score**: Computes weighted exam board percentage based on concept difficulty weights and confidence intervals.
-
-### 3. 🎯 Adaptive Diagnostic Test
-- Dynamically selects the next question maximizing **Shannon entropy / uncertainty** ($H(p) = -p \log_2 p - (1-p) \log_2 (1-p)$), targeting $P(L) \approx 0.50$.
-- **Early Stopping**: Halts between 8 and 12 questions when the model achieves confidence convergence ($\sigma^2 \le 0.45$).
-- **Mandatory Typed Reasoning**: Students must explain *"Why did you pick this?"* after every answer to expose their mental model.
-
-### 4. 🔴 Misconception Detection & Repair (The Core Differentiator)
-- Catalog of **14 verified physics misconceptions** in `/data/misconceptions.json`:
-  - *"Current is consumed / used up in a bulb"*
-  - *"Batteries supply a constant current regardless of load"*
-  - *"Higher resistance means more current"*
-  - *"Series and parallel bulbs have equal brightness"*
-  - *"Adding parallel resistors increases equivalent resistance"*
-  - *"Electrons travel at the speed of light along the wire"*
-  - *"Voltmeters connect in series"*
-- **Reasoning Analysis**: `lib/llm.ts` analyzes the student's written words rather than just the option index.
-- **100% Deterministic Fallback**: Operates completely offline without an API key using keyword and distractor mapping.
-- **Counter-Example Repair**: Displays a named "Bug Card" and serves a targeted counter-intuitive challenge question. Solving it extinguishes the red flare and restores star brightness!
-
-### 5. ⏳ Spaced Repetition (SM-2) & Celestial Forgetting Curve
-- Concept stability scheduling via SuperMemo SM-2 ($I(n) = I(n-1) \times EF$).
-- **Celestial Dimming**: Star luminosity dims over elapsed days following Ebbinghaus retention:
-  $$L(t) = P(L) \cdot (0.4 + 0.6 \cdot e^{-t / S})$$
-- Stars due for review pulse softly with an amber aura.
-
-### 6. 👩‍🏫 Teacher Dashboard (`/teacher`)
-- **30 Simulated Students Cohort**: Realistic heterogeneous distribution across 4 personas: High Achievers, Math Stumblers, Misconception-Prone, and Foundational Strugglers (clearly marked as *Simulated Data*).
-- **Matrix Heatmap**: 30 Students $\times$ 29 Concepts with color-coded mastery and active bug flags.
-- **Ranked Class Gaps**: Identifies class-wide bottlenecks.
-- **Top Shared Misconceptions**: Displays class distribution (e.g., *"17 of 30 students believe current is used up"*).
-- **AI Suggested Lesson Plan for Tomorrow**: Proposes a 45-minute lesson with a hands-on inquiry counter-experiment ("The Twin Ammeter Test") and discussion prompts.
-- **Student Drill-Down**: Click any concept or misconception to see the exact student roster needing intervention.
-
-### 7. ⚡ 3-Minute Demo Mode
-- A 1-click button in the navigation bar that fast-forwards the learner state with varied star luminosities, active red flares, and review queues for quick hackathon demonstrations.
+ConstellationEd shifts the paradigm from standard test-prep tools that merely tally right and wrong answers to an **evidence-based cognitive tutor**. It models what a student actually understands using **Bayesian Knowledge Tracing (BKT)**, diagnoses flawed mental models from **student-typed reasoning**, schedules retention with **SM-2 spaced repetition**, and visualizes the student's mastery as a living, breathing **night sky constellation**.
 
 ---
 
-## 🛠️ Tech Stack
+## 📌 Problem Statement
 
-- **Framework**: Next.js 14+ (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS with custom celestial shaders & glassmorphism
-- **Storage**: Typed persistent local store (`data/store.json`) with atomic writes
-- **Visuals**: Dynamic responsive SVG Constellation Canvas with radial celestial halos
-- **LLM Layer**: `lib/llm.ts` supporting Gemini API / OpenAI API with strict JSON schema validation, retry loop, and **100% offline deterministic fallbacks** in `/data`.
-- **Testing**: Node.js native test runner via `tsx` (12 unit tests).
+Traditional ed-tech platforms and exam-prep apps suffer from a fundamental cognitive blind spot:
+1. **They track answers, not understanding:** If a student guesses correctly, standard apps assume mastery. If a student makes an arithmetic slip on an Ohm's Law problem, standard apps assume they don't understand current.
+2. **Invisible Misconceptions:** In physics, students don't fail because their minds are empty; they fail because they have deeply held, intuitive, incorrect mental models (e.g., *"current is consumed inside a light bulb like fuel"* or *"a 9V battery always outputs the same current regardless of what is plugged in"*). Multiple-choice questions alone cannot distinguish an honest calculation error from a deep conceptual bug.
+3. **No Prerequisite Accountability:** Failure on advanced synthesis concepts (like equivalent resistance or Joule heating) should update confidence in foundational prerequisites (electric charge, potential difference, Ohm's law). Standard quiz apps isolate every question as an independent silo.
+4. **Forgetting Is Ignored:** Memorized formulas fade within days unless reinforced at mathematically optimal intervals.
+
+**ConstellationEd solves this:**
+- Visualizes mastery as **star brightness** in a dark cosmic sky.
+- Propagates mastery bidirectionally across a **29-concept Directed Acyclic Graph (DAG)**.
+- Diagnoses mental model bugs from **mandatory typed student reasoning** and displays them as **pulsating red solar flares**.
+- Repairs misconceptions through targeted **counter-example challenge questions** that physically disprove the false intuition.
+- Preserves long-term memory with **SM-2 spaced repetition** and Ebbinghaus forgetting curve retention decay.
 
 ---
 
-## 📦 Getting Started
+## 🏆 Hackathon Feature Checklist
 
-### 1. Install Dependencies
+| Hackathon Requirement | ConstellationEd Implementation | Status |
+| :--- | :--- | :---: |
+| **1. Concept Graph** | 29 Class 10 Electricity concepts in `/data/concepts.json` spanning 7 pedagogical clusters with complete prerequisite DAG edges. | ✅ Complete |
+| **2. Diagnostic Test** | 8–12 questions adaptive engine minimizing Shannon entropy ($H(p)$), early stopping on variance convergence, mandatory 1-line typed reasoning. | ✅ Complete |
+| **3. Learner Model** | 4-parameter BKT ($P(L_0), T, s, g$), bidirectional prerequisite propagation, live dynamic Predicted Exam Score gauge. | ✅ Complete |
+| **4. Question Generation & Calibration** | LLM-generated questions targeting 70% success probability, dynamic difficulty calibration (1–5), 100% deterministic fallback in `/data/questions.json`. | ✅ Complete |
+| **5. Misconception Detection** | 14 curated physics bugs in `/data/misconceptions.json`, LLM reasoning inspection extracting verbatim quotes, counter-example repair challenges that extinguish red solar flares. | ✅ Complete |
+| **6. Spaced Repetition** | SM-2 scheduling ($I(n) = I(n-1) \times EF$), celestial retention decay ($L(t)$), amber review pulsing, dynamic session queue blending due + weakest concepts. | ✅ Complete |
+| **7. Student View (`/student`)** | Interactive cosmic sky canvas, star halos, red solar flares, star inspector drawer, predicted score HUD, mental bug cards, counter-example modal. | ✅ Complete |
+| **8. Teacher Dashboard (`/teacher`)** | 30-student simulated cohort, 30×29 heatmap with sticky headers/columns, bug icons with quote tooltips, ranked class gaps, AI suggested lesson plan with counter-experiment. | ✅ Complete |
+| **9. Polish & 3-Min Demo Mode** | Cosmic dark aesthetic, smooth SVG animations, fast-forward demo seeding button for rapid 3-minute hackathon judging. | ✅ Complete |
+
+---
+
+## 🏛️ System Architecture
+
+ConstellationEd is built on **Next.js 14 (App Router)** with a modular architecture separating mathematical cognition engines, resilient LLM providers, and reactive UI components:
+
+```
+constellation-ed/
+├── app/
+│   ├── api/
+│   │   ├── diagnostic/
+│   │   │   ├── start/route.ts       # Initializes adaptive diagnostic session
+│   │   │   └── answer/route.ts      # BKT update + prerequisite cascade + next question
+│   │   ├── misconception/
+│   │   │   └── resolve/route.ts     # Counter-example verification & flare extinguish
+│   │   ├── practice/
+│   │   │   └── generate/route.ts    # Calibrated question generation (LLM + Fallback)
+│   │   ├── student/
+│   │   │   └── session-queue/route.ts # Blended SM-2 review queue & star luminosities
+│   │   ├── teacher/
+│   │   │   └── analytics/route.ts   # Cohort aggregation, heatmap, AI lesson plan
+│   │   └── demo/
+│   │       └── fast-forward/route.ts# Instant state accelerator for demo flow
+│   ├── student/page.tsx             # Student Sky UI, Star Inspector & Bug Cards
+│   ├── teacher/page.tsx             # Teacher Matrix Heatmap & Class Analytics
+│   └── page.tsx                     # Landing redirect to /student
+├── components/
+│   ├── ConstellationCanvas.tsx      # SVG star sky with glows, flares & prerequisite lines
+│   ├── StarInspectorDrawer.tsx      # Slide-over showing concept mastery & prerequisites
+│   ├── PredictedScoreGauge.tsx      # Live animated radial exam prediction gauge
+│   ├── MisconceptionCards.tsx       # "Bug Found" cards with counter-example triggers
+│   ├── CounterExampleModal.tsx      # Interactive counter-intuitive repair challenges
+│   ├── DiagnosticModal.tsx          # Adaptive diagnostic test runner with reasoning
+│   ├── PracticeModal.tsx            # Targeted concept practice modal
+│   └── Navbar.tsx                   # Top navigation with 3-Min Demo trigger
+├── data/
+│   ├── concepts.json                # 29 concepts DAG with difficulty & explanations
+│   ├── misconceptions.json          # 14 physics misconceptions with counter-examples
+│   ├── questions.json               # 30+ calibrated questions with misconception tags
+│   └── store.json                   # Typed local JSON database store
+├── lib/
+│   ├── bkt.ts                       # Bayesian Knowledge Tracing & Prerequisite cascades
+│   ├── sm2.ts                       # SuperMemo SM-2 & Ebbinghaus forgetting curve
+│   ├── exam-score.ts                # Board exam score prediction model
+│   ├── diagnostic.ts                # Shannon entropy question selection & early stopping
+│   ├── llm.ts                       # Multi-provider LLM (Gemini/OpenAI) + Fallbacks
+│   ├── db.ts                        # Atomic database store accessor
+│   └── seed-teacher.ts              # 30-student simulated cohort with 4 archetypes
+└── tests/
+    ├── bkt.test.ts                  # Unit tests for BKT updates & propagation
+    └── sm2.test.ts                  # Unit tests for SM-2 intervals & forgetting curve
+```
+
+---
+
+## 🧠 How the Learner Model Works
+
+### 1. Bayesian Knowledge Tracing (BKT)
+Every concept $c$ for each student maintains a latent mastery probability $P(L_c) \in [0.01, 0.99]$.
+The model uses standard 4-parameter BKT:
+- **$P(L_0) = 0.20$**: Prior probability of knowing the concept before practice.
+- **$T = 0.15$**: Transition probability (probability of learning the concept on this trial).
+- **$s = 0.10$**: Slip probability (student knows the concept but makes a careless slip).
+- **$g = 0.25$**: Guess probability (student doesn't know, but guesses correctly on a 4-option question).
+
+#### Update Rule
+Upon observing an answer $O_t \in \{0, 1\}$:
+
+**If correct ($O_t = 1$):**
+$$P(L_t \mid O_t = 1) = \frac{P(L_t)(1 - s)}{P(L_t)(1 - s) + (1 - P(L_t))g}$$
+
+**If incorrect ($O_t = 0$):**
+$$P(L_t \mid O_t = 0) = \frac{P(L_t) \cdot s}{P(L_t) \cdot s + (1 - P(L_t))(1 - g)}$$
+
+**Transition Step:**
+$$P(L_{t+1}) = P(L_t \mid O_t) + (1 - P(L_t \mid O_t)) \cdot T$$
+
+---
+
+### 2. Bidirectional Prerequisite Propagation
+Concepts are linked in a Directed Acyclic Graph (e.g., `electric_charge` $\rightarrow$ `electric_current` $\rightarrow$ `potential_difference` $\rightarrow$ `ohms_law` $\rightarrow$ `series_circuits`).
+
+```
+[Electric Charge] ──> [Electric Current] ──> [Potential Difference]
+                                │                      │
+                                └───> [Ohm's Law] <────┘
+                                           │
+                                ┌──────────┴──────────┐
+                                ▼                     ▼
+                       [Series Circuits]     [Parallel Circuits]
+```
+
+When a student answers a question on concept $C$:
+- **Downstream Failure Dampens Upstream Prerequisites ($\gamma = 0.35$):**  
+  If a student fails on *Ohm's Law*, their probability of mastering upstream foundations (*Electric Current*, *Potential Difference*) is dampened proportionally:
+  $$P(L_{\text{prereq}})_{\text{new}} = P(L_{\text{prereq}}) \cdot \left[1 - \gamma \cdot (1 - P(L_C))\right]$$
+- **Upstream Success Reinforces Prerequisites ($\gamma_{\text{boost}} = 0.15$):**  
+  Correctly applying Ohm's Law validates mastery in foundational prerequisites:
+  $$P(L_{\text{prereq}})_{\text{new}} = P(L_{\text{prereq}}) + (1 - P(L_{\text{prereq}})) \cdot \gamma_{\text{boost}} \cdot P(L_C)$$
+
+---
+
+### 3. Spaced Repetition (SM-2) & Celestial Forgetting Curve
+Every concept tracks review scheduling via the **SuperMemo-2 (SM-2)** algorithm:
+- Initial interval $I(1) = 1$ day; second interval $I(2) = 6$ days.
+- Subsequent intervals: $I(n) = I(n-1) \times EF$.
+- Ease Factor update:
+  $$EF' = EF + (0.1 - (5 - q) \cdot (0.08 + (5 - q) \cdot 0.02)), \quad EF' \ge 1.30$$
+  where $q \in \{1, 3, 5\}$ is recall quality derived from answer accuracy and response time.
+
+#### Celestial Forgetting Curve
+Over elapsed time $t$ (days), star luminosity $L(t)$ dims according to the Ebbinghaus retention curve:
+$$L(t) = P(L) \cdot \left(0.40 + 0.60 \cdot e^{-t / S}\right)$$
+where $S$ is memory stability derived from repetition count and ease factor. Stars that are due for review ($t \ge \text{interval}$) dim and pulse softly with an **amber aura**, alerting the student to review.
+
+---
+
+### 4. Shannon Entropy Adaptive Diagnostic
+The diagnostic engine selects the next question by maximizing **Shannon Entropy (uncertainty)**:
+$$H(p) = -p \log_2 p - (1-p) \log_2 (1-p)$$
+It selects the concept closest to $P(L) = 0.50$ (maximum cognitive ambiguity) among concepts whose prerequisites have been at least partially explored.
+- **Early Stopping:** If the standard deviation of mastery across the syllabus drops below $\sigma \le 0.45$ after question 8, or at the maximum cap of 12 questions, the test halts with a converged profile.
+
+---
+
+## 🔍 How Misconception Detection Works
+
+Misconception detection is the **core differentiator** of ConstellationEd. Rather than guessing intentions from an option click, ConstellationEd analyzes the student's **typed natural language reasoning**.
+
+```
+[Student Answers Question]
+            │
+            ▼
+[Mandatory 1-Line Typed Reasoning: "Why did you pick this?"]
+            │
+            ▼
+┌─────────────────────────────────────────────────────────────┐
+│                       lib/llm.ts                            │
+│  - Evaluates: (Question, Chosen Option, Typed Reasoning)    │
+│  - Compares against 14 Known Physics Misconceptions         │
+│  - Extracts: { misconception_id, quote, explanation }       │
+│  - 100% Deterministic Fallback if API offline               │
+└─────────────────────────────────────────────────────────────┘
+            │
+            ▼
+[Misconception Detected?]
+   ├── YES ──> [Erupt Red Solar Flare on Star in Sky]
+   │           [Generate "Mental Model Bug Card"]
+   │           [Serve Targeted Counter-Example Challenge]
+   │                 │ (Student solves challenge)
+   │                 ▼
+   │           [Extinguish Flare + Restore Star Luminosity + Confetti]
+   │
+   └── NO  ──> [Standard BKT Mastery Update]
+```
+
+### 1. Mandatory Student Reasoning
+After selecting an option, the student cannot proceed without answering:  
+*"Why did you pick this option? Explain your thinking in one sentence."*
+
+### 2. Multi-Provider LLM with Strict JSON & Fallback
+The reasoning text is dispatched to `lib/llm.ts`:
+- Prompted with a curated library of **14 Class 10 misconceptions** (from `/data/misconceptions.json`), including:
+  - `misc_current_consumed`: *"Current is consumed or used up by the bulb like fuel."*
+  - `misc_battery_constant_current`: *"A battery pushes a fixed, constant current into any circuit."*
+  - `misc_resistance_flow_more`: *"Higher resistance attracts more current because it needs more power."*
+  - `misc_series_parallel_same_brightness`: *"Bulbs in series have the same brightness as bulbs in parallel because the battery is the same."*
+  - `misc_parallel_resistance_adds`: *"Adding parallel resistors increases total resistance because there are more resistors."*
+  - `misc_electron_speed_light`: *"Electrons travel at the speed of light through the wire."*
+- Returns structured JSON: `{ misconception_id, confidence, evidence_quote_from_reasoning, explanation }`.
+- **Deterministic Offline Resilience:** If the API key is unset or the external API fails, the system executes an offline pattern matcher against option distractor keys and reasoning keywords. **The demo never breaks.**
+
+### 3. Cognitive Repair via Counter-Examples
+When a bug is diagnosed:
+1. The concept star in the sky erupts with a **pulsating red solar flare**.
+2. A **Mental Model Bug Card** appears on the student dashboard detailing:
+   - What the student believes
+   - The verbatim quote extracted from their reasoning
+   - Why that intuition feels true
+   - The physical contradiction
+3. The student clicks **"Fix Bug via Counter-Example"** to launch a concrete thought-experiment (e.g., the *Twin Ammeter Test* showing identical current entering and exiting a filament).
+4. Answering correctly repairs the mental model, extinguishes the red flare, and logs the bug as resolved.
+
+---
+
+## 👩‍🏫 Teacher Dashboard
+
+The Teacher Dashboard (`/teacher`) provides classroom-level cognitive diagnostics:
+- **Matrix Heatmap (30 Students × 29 Concepts):** Color-coded by mastery probability $P(L)$. Features two-way sticky scrolling (header row and student name column stay locked).
+- **Active Bug Icons:** Cells where students have an unresolved misconception display a pulsing `<Bug />` icon; hovering reveals the student's verbatim quote and misconception title.
+- **Ranked Class Gaps:** Automatically sorts the 29 concepts from lowest to highest class average mastery to spotlight immediate bottlenecks.
+- **Top Shared Misconceptions:** Shows class prevalence (e.g., *"17 of 30 students believe current is used up in a bulb"*).
+- **AI Suggested Lesson Plan for Tomorrow:** Generates a complete 45-minute inquiry-based lesson plan targeting the top 3 gaps and top shared misconception, complete with hands-on counter-experiments and discussion prompts.
+- **Student Drill-Down:** Clicking any concept or misconception displays the exact roster of students who need targeted intervention.
+
+> [!NOTE]  
+> **Simulated Data Notice:** The Teacher Dashboard uses a realistic **30-student simulated cohort** (`Class 10-A (Simulated Data)`) seeded with 4 realistic learner archetypes (High Achievers, Typical Learners, Misconception-Prone, Foundational Strugglers) and 4 misconception clusters. This allows evaluators to explore realistic class-wide analytics immediately without needing 30 individual test sessions. Click **"Reseed Cohort"** in the teacher header to regenerate random distributions at any time.
+
+---
+
+## ⚡ 3-Minute Demo Walkthrough for Judges
+
+To experience the complete product flow in under 3 minutes:
+
+1. **Open the Student Sky:**  
+   Navigate to **[http://localhost:3000/student](http://localhost:3000/student)**.
+2. **Click "Demo Mode (3 min)":**  
+   Click the **Demo Mode (3 min)** button in the top navigation bar. This fast-forwards the learner state with realistic star brightnesses, two active red solar flares, and due reviews.
+3. **Inspect the Constellation:**  
+   Notice that stars for mastered concepts glow bright cyan/gold, while unmastered stars are dim. Notice the two stars with **pulsating red flares** (*Electric Current* and *Ohm's Law*).
+4. **Inspect a Star:**  
+   Click on the **"Electric Current"** star. The slide-over inspector shows its BKT mastery ($P(L) = 0.42$), prerequisite dependencies, and review schedule.
+5. **Repair a Mental Model Bug:**  
+   Scroll down to the **"Detected Mental Model Bugs"** section. Click **"Fix Bug via Counter-Example"** on the *"Current is Consumed in a Bulb"* card.
+6. **Solve the Counter-Example:**  
+   Read the *Twin Ammeter* setup. Select **Option B** (*"Both ammeters read identical values because charge is conserved"*). Submit the repair.  
+   *Watch the celebration confetti fire and see the red flare extinguish into a bright star!*
+7. **Run Adaptive Diagnostic Practice:**  
+   Click **"Start Today's Session"** to experience the adaptive diagnostic question runner. Enter your answer and type your one-line reasoning to see live BKT updates.
+8. **Explore the Teacher Hub:**  
+   Click **"Teacher Hub"** in the top navigation (**[http://localhost:3000/teacher](http://localhost:3000/teacher)**).  
+   - Inspect the sticky 30×29 student heatmap.
+   - Hover over cells with the `<Bug />` icon to see student reasoning quotes.
+   - Click a concept under **"Ranked Class Gaps"** to see which students need help.
+   - Review the **AI Suggested Lesson Plan** for tomorrow's class.
+
+---
+
+## 🛠️ Setup & Installation
+
+### Prerequisites
+- **Node.js**: v18.0.0 or higher (tested on Node v20 & v24)
+- **npm**: v9.0.0 or higher
+
+### 1. Clone & Install
 ```bash
+git clone https://github.com/your-username/constellation-ed.git
+cd constellation-ed
 npm install
 ```
 
-### 2. Configure Environment (Optional)
-Copy `.env.example` to `.env.local`:
+### 2. Configure Environment Variables (Optional)
+ConstellationEd is **100% functional offline** with built-in deterministic fallbacks. To enable live LLM question generation and reasoning analysis with Gemini or OpenAI:
+
 ```bash
 cp .env.example .env.local
 ```
-*(Note: If no API key is provided, ConstellationEd seamlessly uses its built-in deterministic question bank and misconception engine).*
+
+Edit `.env.local`:
+```env
+# Google Gemini API Key (Recommended)
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Or OpenAI API Key
+OPENAI_API_KEY=your_openai_api_key_here
+
+# LLM Provider choice ("gemini" | "openai")
+LLM_PROVIDER=gemini
+```
 
 ### 3. Run Unit Tests
+Validate the learner model, BKT calculations, prerequisite cascades, SM-2 intervals, and forgetting curves:
 ```bash
 npm test
 ```
-*Validates 12 tests across BKT updates, convergence, prerequisite propagation, SM-2 intervals, and forgetting curve retention.*
+*Expected output: `tests 12, pass 12, fail 0`.*
 
-### 4. Start the Application
+### 4. Run Development Server
 ```bash
 npm run dev
 ```
-Open **[http://localhost:3000](http://localhost:3000)** in your browser.
+Open **[http://localhost:3000](http://localhost:3000)** in your browser (automatically redirects to `/student`).
 
 ---
 
-## 🗺️ Routes & Demo Walkthrough
+## 🚀 Deploying to Vercel
 
-| Route | Description |
-| :--- | :--- |
-| `/student` | Student Sky: Constellation canvas, live exam score HUD, active bug cards, star inspector, and review queue. |
-| `/teacher` | Teacher Hub: 30-student cohort heatmap, ranked class gaps, top shared misconceptions, and AI lesson plan. |
-| `POST /api/demo/fast-forward` | Fast-forwards state for a 3-minute hackathon demo. |
+ConstellationEd is fully configured for zero-configuration, seamless deployment on **Vercel** serverless environments:
 
-### 3-Minute Demo Flow for Judges:
-1. Open `/student` and click **"Demo Mode (3 min)"** in the top navigation.
-2. Observe the Constellation Sky: stars brighten according to mastery, two stars erupt with **red solar flares** (misconceptions on *Electric Current* and *Ohm's Law*), and amber-pulsing stars indicate *review due*.
-3. Scroll down to the **"Detected Mental Model Bugs"** card for *"Current is Consumed in a Bulb"*.
-4. Click **"Fix Bug via Counter-Example"**, answer the Twin Ammeter challenge, and watch the red flare extinguish as confetti celebrates your cognitive repair!
-5. Click **"Start Today's Session"** to experience the adaptive diagnostic test with mandatory one-line reasoning.
-6. Switch to **"Teacher Hub"** in the top navbar: explore the 30-student heatmap, click a weak concept to inspect struggling students, and review the AI-suggested lesson plan for tomorrow's class.
+### 1. Push to GitHub
+```bash
+git add .
+git commit -m "Deploy ConstellationEd"
+git push origin main
+```
+
+### 2. Import Project into Vercel
+1. Go to [vercel.com/new](https://vercel.com/new) and select your repository.
+2. Framework Preset: **Next.js** (auto-detected).
+3. Root Directory: `./` (leave default).
+
+### 3. Environment Variables on Vercel
+All environment variables are **optional** because ConstellationEd includes complete deterministic question banks and misconception repair engines:
+
+| Variable | Description | Required? | Default / Fallback |
+| :--- | :--- | :---: | :--- |
+| `GEMINI_API_KEY` | Google Gemini API key for live question generation and reasoning analysis. | **No** (Optional) | Falls back to offline question bank & deterministic detector in `/data`. |
+| `OPENAI_API_KEY` | OpenAI API key (alternative to Gemini). | **No** (Optional) | Falls back to offline question bank & deterministic detector in `/data`. |
+| `LLM_PROVIDER` | Preferred LLM provider (`"gemini"` or `"openai"`). | **No** (Optional) | `"gemini"` |
+
+### 4. Serverless Resilience & Storage
+- **Read-Only Root Filesystem Handling**: In Vercel serverless functions, the root filesystem is read-only. ConstellationEd uses a hybrid storage strategy:
+  1. **In-Memory Global Singleton (`globalThis`)**: Maintains instant state updates across API requests during container lifetime.
+  2. **Writable `/tmp` Storage**: Detects Vercel (`process.env.VERCEL`) and directs filesystem writes to `os.tmpdir()` (`/tmp/constellation_store.json`), preventing `EROFS` crashes.
+  3. **Bundled Seed Fallback**: Reads the bundled `data/store.json` (30 simulated students + demo student) on cold starts.
+  4. **Strict Dynamic Serverless API**: All API routes export `export const dynamic = "force-dynamic"`, eliminating static pre-render errors during `next build`.
+- **Offline / Zero-Key Demo Guarantee**: Even if deployed with no API keys configured, all features (Adaptive Diagnostic, Counter-Example Repairs, 3-Minute Fast-Forward Demo, Teacher Heatmap, AI Lesson Plan fallback) remain 100% interactive.
+
+---
+
+## 🧪 Unit Test Coverage
+
+The test suite in `/tests` directly validates core cognitive algorithms:
+
+| Test Case | Module | What It Verifies |
+| :--- | :--- | :--- |
+| `BKT - correct answer` | `lib/bkt.ts` | $P(L)$ increases upon correct response accounting for slip/guess. |
+| `BKT - incorrect answer` | `lib/bkt.ts` | $P(L)$ decreases upon incorrect response accounting for slip/guess. |
+| `BKT - consecutive correct` | `lib/bkt.ts` | Repeated successes converge toward asymptote ($P(L) \to 0.99$). |
+| `BKT - boundary clamping` | `lib/bkt.ts` | Values are strictly clamped within $[0.01, 0.99]$. |
+| `BKT - downstream failure cascade` | `lib/bkt.ts` | Failing downstream concepts dampens upstream prerequisite confidences. |
+| `BKT - downstream success boost` | `lib/bkt.ts` | Solving downstream concepts reinforces prerequisite masteries. |
+| `SM-2 - initial recall` | `lib/sm2.ts` | First quality review produces an interval of 1 day. |
+| `SM-2 - second repetition` | `lib/sm2.ts` | Second successful repetition expands interval to 6 days. |
+| `SM-2 - ease factor scaling` | `lib/sm2.ts` | Subsequent intervals scale by ease factor ($I(n) = I(n-1) \times EF$). |
+| `SM-2 - failed recall reset` | `lib/sm2.ts` | Failing recall resets repetition count to 0 and interval to 1. |
+| `SM-2 - ease factor floor` | `lib/sm2.ts` | Ease factor is never permitted to drop below $1.30$. |
+| `Forgetting Curve decay` | `lib/sm2.ts` | Luminosity decays exponentially with elapsed time following Ebbinghaus retention. |
+
+---
+
+## 📄 License
+MIT License. Built with ❤️ for the Hackathon.
