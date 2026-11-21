@@ -1,0 +1,296 @@
+[
+  {
+    "id": "curr_used_up",
+    "concept_id": "electric_current",
+    "name": "Current is Consumed / Used Up",
+    "description": "Student believes electric current gets depleted or consumed as it passes through a load like a bulb.",
+    "typical_belief": "The bulb burns up the electricity, so the wire leaving the bulb has less current than the wire entering it.",
+    "why_it_feels_true": "In daily life, fuel in a car or water in a fountain is consumed or drained to produce output.",
+    "scientific_truth": "Current is the flow rate of electrons (charge carriers). Charge is conserved; every electron entering one side of a filament leaves the other side. Only electrical potential energy is converted to light and heat.",
+    "counter_example_question": {
+      "question": "An ammeter is placed immediately before a 60 W lamp and reads 0.50 A. A second identical ammeter is placed immediately after the lamp in the return wire to the battery. What will the second ammeter read?",
+      "options": [
+        "Less than 0.50 A because the lamp consumes some current for illumination",
+        "Exactly 0.50 A because electric charge cannot accumulate or disappear in the circuit",
+        "0.00 A because all the current is converted into light and heat energy",
+        "More than 0.50 A due to thermal expansion of the filament"
+      ],
+      "correct_index": 1,
+      "explanation": "By conservation of electric charge, the rate of charge entering any device must equal the rate leaving it in a single loop. Both ammeters read exactly 0.50 A. Energy is transformed, not charge!"
+    },
+    "distractor_trigger_keywords": ["used up", "consumed", "eaten", "burns up", "depleted", "less current after", "current decreases after bulb"]
+  },
+  {
+    "id": "battery_const_curr",
+    "concept_id": "ohms_law",
+    "name": "Battery Supplies Constant Current",
+    "description": "Student believes a battery pumps out the exact same fixed amperage regardless of what circuit is attached.",
+    "typical_belief": "A 9V battery always produces 2 Amps no matter whether you connect a tiny resistor or a huge motor.",
+    "why_it_feels_true": "Batteries have rated sizes (AA, AAA, 9V), leading students to think of them as constant-speed pumps with fixed flow.",
+    "scientific_truth": "A chemical cell maintains an approximately constant potential difference (voltage), not constant current. The current drawn depends entirely on the total equivalent resistance of the connected load: I = V / R.",
+    "counter_example_question": {
+      "question": "A student connects a 12 V battery to a 6 Ω resistor, drawing 2 A of current. She then replaces the 6 Ω resistor with a 24 Ω resistor. What current will the battery now deliver?",
+      "options": [
+        "Still 2 A, because the battery always outputs its fixed rated current",
+        "0.5 A, because the battery maintains 12 V and higher resistance reduces the current",
+        "8 A, because the bigger resistor pulls more energy out of the battery",
+        "0 A, because 24 Ω is too large for a 12 V battery to conduct"
+      ],
+      "correct_index": 1,
+      "explanation": "A battery maintains potential difference V = 12 V. By Ohm's law, I = V / R = 12 V / 24 Ω = 0.5 A. The current adapts to the load resistance!"
+    },
+    "distractor_trigger_keywords": ["fixed current", "battery always gives", "constant current", "rated amperes", "same current regardless", "supplies fixed"]
+  },
+  {
+    "id": "higher_res_more_curr",
+    "concept_id": "electrical_resistance",
+    "name": "Higher Resistance Demands More Current",
+    "description": "Student confuses electrical resistance with mechanical pull, thinking higher resistance draws more current.",
+    "typical_belief": "A bigger resistor does more work or requires more electrical power, so it pulls more current from the supply.",
+    "why_it_feels_true": "People associate 'greater resistance' with 'having more power' or 'being stronger'.",
+    "scientific_truth": "Resistance is opposition to electron flow. Under a fixed voltage, current is inversely proportional to resistance (I = V / R). More resistance always means less current.",
+    "counter_example_question": {
+      "question": "Two heating coils with resistances 10 Ω and 100 Ω are connected individually across the same 220 V mains supply. Which coil draws more current?",
+      "options": [
+        "The 100 Ω coil, because higher resistance requires more current to operate",
+        "The 10 Ω coil, because lower resistance allows charges to flow more freely under the same voltage",
+        "Both coils draw identical current because the supply voltage is 220 V",
+        "Neither coil draws current until a motor is added"
+      ],
+      "correct_index": 1,
+      "explanation": "Under constant voltage V = 220 V, I = V / R. The 10 Ω coil draws 22 A, whereas the 100 Ω coil draws only 2.2 A. Resistance opposes current!"
+    },
+    "distractor_trigger_keywords": ["higher resistance pulls more", "demands more current", "needs more electricity", "bigger resistor attracts", "more resistance means more current"]
+  },
+  {
+    "id": "series_parallel_same_bright",
+    "concept_id": "series_vs_parallel_comparison",
+    "name": "Series and Parallel Bulbs Share Equal Brightness",
+    "description": "Student assumes two identical bulbs connected to the same battery will glow with equal brightness whether in series or parallel.",
+    "typical_belief": "Both circuits use the same two bulbs and the same battery, so they must shine identically.",
+    "why_it_feels_true": "Both configurations have the same parts count: 2 bulbs and 1 battery.",
+    "scientific_truth": "In series, the two bulbs share the voltage (V/2 each) and have double the equivalent resistance (2R), drawing I = V/(2R) and dissipating P = V²/(4R) each. In parallel, each bulb gets full voltage V and consumes P = V²/R, glowing 4 times brighter than in series!",
+    "counter_example_question": {
+      "question": "Two identical bulbs are first connected in series to a 6 V battery, and then rewired in parallel to the same 6 V battery. How does their brightness compare?",
+      "options": [
+        "They have equal brightness in both arrangements because the battery voltage is 6 V in each case",
+        "The bulbs in parallel glow significantly brighter because each receives the full 6 V across its terminals",
+        "The series bulbs glow brighter because all current is forced through both without splitting",
+        "The parallel bulbs do not light up because current splits and vanishes"
+      ],
+      "correct_index": 1,
+      "explanation": "In parallel, each bulb gets the full 6 V potential difference and draws maximum current, producing far more light power (P = V²/R) than series where each bulb gets only 3 V."
+    },
+    "distractor_trigger_keywords": ["same brightness", "equal brightness in series and parallel", "same battery same light", "bulbs shine the same"]
+  },
+  {
+    "id": "electron_speed_light",
+    "concept_id": "drift_velocity_electron_flow",
+    "name": "Electrons Travel at the Speed of Light",
+    "description": "Student assumes that because the lamp turns on instantaneously, individual electrons physically race from the switch to the bulb at the speed of light.",
+    "typical_belief": "When I flip a light switch, electrons shoot through the wire from the switch to the ceiling bulb in nanoseconds.",
+    "why_it_feels_true": "The light turns on without noticeable delay the millisecond the switch is flipped.",
+    "scientific_truth": "Individual electrons drift extremely slowly—typically fractions of a millimeter per second (drift velocity ~ 10^-4 m/s). The electromagnetic field signal travels near the speed of light (~ 10^8 m/s), setting all free electrons in motion simultaneously across the entire wire.",
+    "counter_example_question": {
+      "question": "When you turn on a flashlight, the bulb lights almost immediately. Does this mean electrons moved from the battery terminal to the bulb in that instant?",
+      "options": [
+        "Yes, electrons travel through copper wire at 300,000 km/s",
+        "No, the wire is already full of free electrons; the electric field signal propagates at near light speed, causing all electrons to drift simultaneously",
+        "Yes, because electricity is a massless fluid that has no inertia",
+        "No, because electricity doesn't involve electrons until it enters the filament"
+      ],
+      "correct_index": 1,
+      "explanation": "The wire is already packed with free electrons (like a pipe full of water). When pressure is applied, water flows from the nozzle immediately even though an individual drop moves slowly. Drift speed is ~0.1 mm/s, but the signal speed is ~3×10^8 m/s!"
+    },
+    "distractor_trigger_keywords": ["speed of light", "shoot through wire", "race to the bulb", "instant travel of electrons", "nanosecond travel"]
+  },
+  {
+    "id": "voltmeter_in_series",
+    "concept_id": "voltmeter_measurement",
+    "name": "Voltmeter Connects in Series",
+    "description": "Student believes voltmeters and ammeters are wired the same way, connecting the voltmeter in series with the load.",
+    "typical_belief": "To measure electricity across a bulb, you insert the meter into the wire line right before the bulb.",
+    "why_it_feels_true": "Both ammeters and voltmeters look like circular gauge boxes with two leads.",
+    "scientific_truth": "A voltmeter measures the potential difference BETWEEN two points and must be in PARALLEL. Because it has very high internal resistance, connecting it in series virtually chokes off the circuit current, causing the bulb to turn off.",
+    "counter_example_question": {
+      "question": "A student accidentally connects an ideal voltmeter in series with a 12 V battery and a light bulb. What happens to the bulb?",
+      "options": [
+        "The bulb glows at double brightness because of the extra voltage reading",
+        "The bulb does not light up because the voltmeter's very high internal resistance drops almost all the voltage and blocks current",
+        "The bulb burns out immediately due to excessive amperage",
+        "The bulb glows normally while the voltmeter reads 0 V"
+      ],
+      "correct_index": 1,
+      "explanation": "A voltmeter has huge resistance (megaohms). In series, it creates an almost open circuit, dropping the current to near zero so the bulb cannot glow. Voltmeters must always be connected in PARALLEL across the component!"
+    },
+    "distractor_trigger_keywords": ["voltmeter in series", "voltmeter connects in line", "meter before the bulb", "series voltmeter"]
+  },
+  {
+    "id": "potential_same_as_force",
+    "concept_id": "potential_difference",
+    "name": "Potential Difference is Mechanical Force",
+    "description": "Student equates potential difference (volts) directly with mechanical force (newtons).",
+    "typical_belief": "Voltage is just a physical push force in Newtons that knocks electrons forward.",
+    "why_it_feels_true": "Common analogies call voltage 'electromotive force' or 'electrical pressure'.",
+    "scientific_truth": "Potential difference is WORK done per unit charge (V = W / Q, Joules per Coulomb), representing electrical potential energy difference, not mechanical force.",
+    "counter_example_question": {
+      "question": "If 60 Joules of work is done to move 5 Coulombs of electric charge from point A to point B in an electric field, what is the potential difference between A and B?",
+      "options": [
+        "300 Newtons, because force equals work times charge",
+        "12 Volts, because potential difference V = Work / Charge = 60 J / 5 C",
+        "55 Volts, because potential is work minus charge",
+        "0.083 Amperes, because current is charge divided by work"
+      ],
+      "correct_index": 1,
+      "explanation": "Potential difference is defined as work done per unit charge: V = W / Q = 60 J / 5 C = 12 V (1 Volt = 1 Joule/Coulomb). It is an energy metric, not a mechanical force."
+    },
+    "distractor_trigger_keywords": ["force in newtons", "mechanical force", "voltage is a force", "push force newtons"]
+  },
+  {
+    "id": "parallel_higher_res",
+    "concept_id": "parallel_equivalent_resistance",
+    "name": "Adding Parallel Resistors Increases Resistance",
+    "description": "Student believes adding more resistors in parallel increases the total circuit resistance because 'more resistors = more obstacle'.",
+    "typical_belief": "If one resistor offers 10 Ω, adding another 10 Ω resistor in parallel makes it 20 Ω because there are more things blocking the current.",
+    "why_it_feels_true": "In daily experience, adding more obstacles in an obstacle course increases the total difficulty.",
+    "scientific_truth": "Adding parallel branches provides additional alternate pathways for charge to flow. The total equivalent resistance decreases: 1/Rp = 1/R1 + 1/R2. Two 10 Ω resistors in parallel have an equivalent resistance of only 5 Ω!",
+    "counter_example_question": {
+      "question": "A toll plaza has 1 lane open, creating a traffic bottleneck. If 3 additional identical toll lanes are opened in parallel, what happens to the total resistance to car flow?",
+      "options": [
+        "Total resistance increases because there are now 4 times as many toll booths blocking the road",
+        "Total resistance decreases to one-fourth because traffic has multiple simultaneous pathways to pass through",
+        "Total resistance remains unchanged because individual toll booths did not get faster",
+        "Resistance doubles due to lane interference"
+      ],
+      "correct_index": 1,
+      "explanation": "Just like opening multiple toll booths decreases overall traffic congestion, adding resistors in parallel provides additional independent pathways for electrons, strictly decreasing total equivalent resistance (1/Rp = Σ 1/R)."
+    },
+    "distractor_trigger_keywords": ["more resistors more resistance", "parallel adds up", "adding resistors increases total", "parallel increases resistance", "more obstacle"]
+  },
+  {
+    "id": "power_equals_energy",
+    "concept_id": "electric_power_formulas",
+    "name": "Power is Confused with Total Energy",
+    "description": "Student treats electric power (Watts) and electrical energy (Joules or kWh) as interchangeable terms.",
+    "typical_belief": "A 1000 W heater always uses more total electricity than a 100 W bulb, regardless of how long each is switched on.",
+    "why_it_feels_true": "High wattage appliances are called 'power hungry', conflating rate with total quantity.",
+    "scientific_truth": "Power is the RATE of energy conversion (P = E / t, Watts = J/s). Total energy consumed is Power × Time (E = P × t). A 100 W bulb on for 24 hours consumes 2.4 kWh, while a 1000 W heater on for 10 minutes consumes only 0.167 kWh.",
+    "counter_example_question": {
+      "question": "Device A is rated 1000 W and runs for 6 minutes. Device B is rated 100 W and runs for 2 hours. Which device consumes more electrical energy?",
+      "options": [
+        "Device A, because 1000 W has 10 times higher power than 100 W",
+        "Device B, because Energy = Power × Time; Device B uses 200 Wh while Device A uses only 100 Wh",
+        "Both consume exactly identical energy because wattage is a fixed unit",
+        "Neither consumes energy because neither specifies voltage"
+      ],
+      "correct_index": 1,
+      "explanation": "Energy = Power × Time. Device A: 1000 W × (6/60 h) = 100 Wh = 0.1 kWh. Device B: 100 W × 2 h = 200 Wh = 0.2 kWh. Device B consumes twice as much energy because time is an equal factor!"
+    },
+    "distractor_trigger_keywords": ["power is energy", "higher wattage always uses more energy", "watts equals joules", "conflating power and energy"]
+  },
+  {
+    "id": "res_independent_geometry",
+    "concept_id": "factors_affecting_resistance",
+    "name": "Resistance is Independent of Wire Dimensions",
+    "description": "Student thinks resistance is solely an unalterable property of the metal, unaffected by length or thickness.",
+    "typical_belief": "Copper is copper; a 10-meter long thin copper wire has the exact same resistance as a 1-meter thick copper rod.",
+    "why_it_feels_true": "Students confuse intrinsic resistivity (ρ) with total electrical resistance (R).",
+    "scientific_truth": "While resistivity ρ depends only on material and temperature, resistance depends on geometry: R = ρ (L / A). Stretching a wire doubles its length and halves its cross-section, multiplying resistance by 4!",
+    "counter_example_question": {
+      "question": "A uniform cylindrical metal wire of resistance R is stretched without loss of material so that its length is doubled. What is its new resistance?",
+      "options": [
+        "Still R, because the wire is made of the same metal",
+        "2R, because resistance is directly proportional to length",
+        "4R, because doubling length also halves the cross-sectional area (volume is constant), making R' = ρ(2L)/(A/2) = 4R",
+        "R/2, because the wire became thinner"
+      ],
+      "correct_index": 2,
+      "explanation": "Because volume = Length × Area remains constant, stretching length to 2L halves area to A/2. Thus R' = ρ (2L) / (A/2) = 4 × ρ(L/A) = 4R. Geometry critically impacts resistance!"
+    },
+    "distractor_trigger_keywords": ["material property only", "same metal same resistance", "length does not matter", "thickness does not change resistance", "copper always has same resistance"]
+  },
+  {
+    "id": "switch_injects_electricity",
+    "concept_id": "electric_circuit",
+    "name": "Switch Injects Electricity into Wires",
+    "description": "Student thinks the switch or battery stores and shoots charges into completely empty wires.",
+    "typical_belief": "Before the switch closes, the wires are empty tubes waiting for electricity to be poured in.",
+    "why_it_feels_true": "Analogous to opening a water valve where water suddenly fills an empty garden hose.",
+    "scientific_truth": "Conductors are permanently filled with trillions of mobile conduction electrons (around 10^28 free electrons/m³ in copper). Closing the switch merely establishes an electric potential gradient that causes all existing electrons to begin drifting simultaneously.",
+    "counter_example_question": {
+      "question": "Where are the electrons that flow through a light bulb filament the instant a circuit is closed?",
+      "options": [
+        "They were stored in the power plant and took time to travel along the power grid",
+        "They are already present inside the filament and conducting wires as free conduction electrons",
+        "They are newly manufactured by the battery terminals during the chemical reaction",
+        "They jump from the atmosphere through the insulated casing"
+      ],
+      "correct_index": 1,
+      "explanation": "Every copper wire and tungsten filament is already saturated with mobile conduction electrons. The power source simply provides the electromotive push (potential difference), not the electrons themselves."
+    },
+    "distractor_trigger_keywords": ["empty wires", "switch fills the wire", "injected electricity", "shoots charges into empty", "creates electrons"]
+  },
+  {
+    "id": "thick_wire_more_res",
+    "concept_id": "factors_affecting_resistance",
+    "name": "Thicker Wires Offer Greater Resistance",
+    "description": "Student believes that because a thick wire contains more atoms, drifting electrons must collide more frequently, increasing resistance.",
+    "typical_belief": "Thicker wire has more mass and more metal atoms, so electrons run into more obstacles, so resistance goes up.",
+    "why_it_feels_true": "More material seems like it should present more total barrier.",
+    "scientific_truth": "A larger cross-sectional area provides more parallel channels for electrons to flow across the cross-section. Just like a wider highway allows more traffic to flow with less congestion, resistance is inversely proportional to area: R ∝ 1/A.",
+    "counter_example_question": {
+      "question": "Two copper wires A and B have the same length, but wire A has twice the diameter of wire B. How do their resistances compare?",
+      "options": [
+        "Wire A has 4 times greater resistance because it has 4 times more copper atoms",
+        "Wire A has 1/4 the resistance of wire B because cross-sectional area is 4 times larger, giving much wider flow path",
+        "Both wires have identical resistance because copper has the same resistivity",
+        "Wire A has twice the resistance of wire B"
+      ],
+      "correct_index": 1,
+      "explanation": "Area A = π (d/2)². Doubling diameter quadruples cross-sectional area (A_new = 4 A_old). Since R ∝ 1/A, the thicker wire has only 1/4 the resistance. Wider wires carry current much more easily!"
+    },
+    "distractor_trigger_keywords": ["thicker has more resistance", "more atoms more obstacles", "heavy wire blocks current", "thick wire resists more"]
+  },
+  {
+    "id": "ground_wire_carries_load",
+    "concept_id": "domestic_wiring_earthing",
+    "name": "Earth/Ground Wire Carries Normal Operating Current",
+    "description": "Student thinks the green ground wire is required to complete the circuit for normal everyday operation.",
+    "typical_belief": "The three pins on a plug are Live, Neutral, and Earth; current goes in through Live and returns half through Neutral and half through Earth.",
+    "why_it_feels_true": "All 3 pins are plugged into the wall, so it seems like all 3 are actively carrying operational current.",
+    "scientific_truth": "Normal operating current flows strictly between Live and Neutral. The Earth wire is a zero-current safety ground connected to the metal chassis. It carries current ONLY during an electrical fault (insulation failure) to safely blow the fuse and avert electric shocks.",
+    "counter_example_question": {
+      "question": "Under normal, safe operating conditions of an electric iron with a three-pin plug, what current flows through the green Earth wire?",
+      "options": [
+        "Half of the operating current drawn by the heating element",
+        "Exactly 0 Amperes, because current returns via the Neutral wire; Earth only conducts during an insulation fault",
+        "Equal current to the live wire to balance the charges",
+        "A small steady current of 1 Ampere to keep the chassis neutral"
+      ],
+      "correct_index": 1,
+      "explanation": "Under normal conditions, current flows only through the Live and Neutral wires. The Earth wire carries zero current unless a fault connects Live directly to the metal casing, in which case it shunts current to ground to trigger the circuit breaker."
+    },
+    "distractor_trigger_keywords": ["earth carries current", "ground completes circuit", "current returns through earth", "three pin shares current"]
+  },
+  {
+    "id": "open_circuit_shocks",
+    "concept_id": "electric_circuit",
+    "name": "Open Switch Allows Current to Reach Front of Load",
+    "description": "Student believes that if a switch is open, current still travels from the positive battery terminal up to the load and simply stops there.",
+    "typical_belief": "Current flows up to the bulb, but since the wire after the bulb is disconnected, the current just sits inside the bulb waiting.",
+    "why_it_feels_true": "Like water filling a hose with a closed nozzle at the end.",
+    "scientific_truth": "Electric current requires a continuous closed loop to sustain charge movement. In an open circuit, opposing electrostatic charges immediately build up on the open terminals, completely neutralizing the electric field inside the conductor within picoseconds. No net current moves anywhere in the loop.",
+    "counter_example_question": {
+      "question": "A circuit contains a battery, a switch, and a light bulb. The switch on the return wire back to the negative terminal is open. Does any current flow through the bulb?",
+      "options": [
+        "Yes, current reaches the bulb from the positive terminal and stops inside the filament",
+        "No, zero current flows anywhere in the circuit because an open circuit cannot sustain an electric field",
+        "Yes, but only enough current to dimly warm the filament",
+        "Current flows back and forth looking for an exit"
+      ],
+      "correct_index": 1,
+      "explanation": "Current is not a fluid that pools in dead ends. Without a closed conducting loop, charge accumulation on broken ends generates an opposing electric field that cancels the battery's field in picoseconds, resulting in strictly zero current."
+    },
+    "distractor_trigger_keywords": ["current reaches the bulb and stops", "open circuit current flows halfway", "pools in the bulb", "current sits in wire"]
+  }
+]

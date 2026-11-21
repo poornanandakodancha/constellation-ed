@@ -1,0 +1,572 @@
+[
+  {
+    "id": "q_charge_01",
+    "concept_id": "electric_charge",
+    "difficulty": 1,
+    "question": "What is the SI unit of electric charge, and how many electrons make up approximately one unit of this charge?",
+    "options": [
+      "Ampere; 1 electron",
+      "Coulomb; 6.25 × 10^18 electrons",
+      "Volt; 1.6 × 10^-19 electrons",
+      "Ohm; 3.0 × 10^8 electrons"
+    ],
+    "correct_index": 1,
+    "explanation": "The SI unit of electric charge is the Coulomb (C). Since each electron possesses a charge of 1.6 × 10^-19 C, Q = ne implies n = 1 / (1.6 × 10^-19) ≈ 6.25 × 10^18 electrons.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_charge_02",
+    "concept_id": "conductors_insulators",
+    "difficulty": 1,
+    "question": "Why do copper and aluminium conduct electric current readily while rubber and glass do not?",
+    "options": [
+      "Copper creates new protons when connected to a circuit",
+      "Conductors possess a vast density of loosely bound free valence electrons",
+      "Insulators contain no electrons whatsoever in their atomic structure",
+      "Rubber absorbs all electric charges permanently inside its nucleus"
+    ],
+    "correct_index": 1,
+    "explanation": "Metallic conductors have a delocalized 'sea' of free valence electrons (~10^28 / m³) free to migrate under an electric field, whereas insulators hold electrons firmly in covalent or ionic bonds.",
+    "distractor_misconceptions": {
+      "0": "switch_injects_electricity",
+      "2": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_curr_01",
+    "concept_id": "electric_current",
+    "difficulty": 1,
+    "question": "If a steady current of 0.75 A flows through the filament of an electric bulb for 10 minutes, what total electric charge passes through the circuit?",
+    "options": [
+      "7.5 Coulombs",
+      "450 Coulombs",
+      "75 Coulombs",
+      "0.075 Coulombs"
+    ],
+    "correct_index": 1,
+    "explanation": "I = Q / t => Q = I × t. Time t = 10 min × 60 s = 600 s. Therefore, Q = 0.75 A × 600 s = 450 Coulombs.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_curr_02",
+    "concept_id": "electric_current",
+    "difficulty": 2,
+    "question": "A light bulb is connected to a 1.5 V battery in a simple loop. An ammeter placed before the bulb reads 0.3 A. An ammeter placed in the wire returning to the negative terminal reads:",
+    "options": [
+      "0.15 A, because the bulb filament uses half the current to produce light",
+      "Exactly 0.3 A, because electric charge is conserved and current is the rate of charge flow",
+      "0.0 A, because the filament converts all current into heat and photons",
+      "0.6 A, because current speeds up returning to the negative terminal"
+    ],
+    "correct_index": 1,
+    "explanation": "Electric current is the rate of flow of charge. Charge cannot be created or destroyed. The current entering the bulb exactly equals the current exiting it.",
+    "distractor_misconceptions": {
+      "0": "curr_used_up",
+      "2": "curr_used_up",
+      "3": null
+    }
+  },
+  {
+    "id": "q_circuit_01",
+    "concept_id": "electric_circuit",
+    "difficulty": 1,
+    "question": "What is required for a continuous electric current to flow through a light bulb?",
+    "options": [
+      "Only a high voltage battery connected to one terminal of the bulb",
+      "A complete, unbroken closed loop containing a source of potential difference",
+      "Wires that are kept completely empty before turning on the power switch",
+      "A switch that continuously pushes electrons into the front of the wire"
+    ],
+    "correct_index": 1,
+    "explanation": "Electric current requires a complete, closed conducting path (circuit) connected across an electrical source that maintains a potential difference.",
+    "distractor_misconceptions": {
+      "0": "open_circuit_shocks",
+      "2": "switch_injects_electricity",
+      "3": "switch_injects_electricity"
+    }
+  },
+  {
+    "id": "q_ammeter_01",
+    "concept_id": "ammeter_measurement",
+    "difficulty": 2,
+    "question": "How should an ammeter be connected in an electrical circuit, and why?",
+    "options": [
+      "In parallel with the resistor, because it needs to measure voltage across the terminals",
+      "In series with the component, because all current to be measured must pass through its very low resistance",
+      "In series, but with very high internal resistance so it doesn't draw power",
+      "In parallel across the battery so it absorbs excess current"
+    ],
+    "correct_index": 1,
+    "explanation": "An ammeter measures current, so all charge must pass through it (series connection). It must have near-zero resistance to avoid altering the circuit current.",
+    "distractor_misconceptions": {
+      "0": "voltmeter_in_series",
+      "2": "voltmeter_in_series",
+      "3": null
+    }
+  },
+  {
+    "id": "q_drift_01",
+    "concept_id": "drift_velocity_electron_flow",
+    "difficulty": 3,
+    "question": "If electrons drift at only about 1 mm/s in a copper wire, why does a light bulb 10 meters away turn on almost the instant you press the switch?",
+    "options": [
+      "The electrons from the switch travel at the speed of light along the wire",
+      "The electric field travels near the speed of light, prompting all conduction electrons already in the wire to drift at once",
+      "The switch pushes light waves directly through the hollow core of the copper wire",
+      "Electrons jump through the air outside the wire directly to the bulb"
+    ],
+    "correct_index": 1,
+    "explanation": "Conductors are already densely populated with free electrons throughout their entire length. When a potential difference is applied, the electromagnetic field propagates at nearly the speed of light (~10^8 m/s), exerting force on all electrons simultaneously.",
+    "distractor_misconceptions": {
+      "0": "electron_speed_light",
+      "2": "switch_injects_electricity",
+      "3": null
+    }
+  },
+  {
+    "id": "q_pot_01",
+    "concept_id": "potential_difference",
+    "difficulty": 2,
+    "question": "How much work is done in moving a charge of 3 Coulombs across two points having a potential difference of 12 V?",
+    "options": [
+      "4 Joules",
+      "36 Joules",
+      "15 Joules",
+      "0.25 Joules"
+    ],
+    "correct_index": 1,
+    "explanation": "Potential difference V = W / Q => Work W = V × Q = 12 V × 3 C = 36 Joules.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_voltmeter_01",
+    "concept_id": "voltmeter_measurement",
+    "difficulty": 2,
+    "question": "A student wants to measure the potential difference across a 10 Ω resistor in a circuit. What is the correct way to connect the voltmeter?",
+    "options": [
+      "Connect the voltmeter in series before the resistor, with low resistance",
+      "Connect the voltmeter in parallel across the two ends of the resistor; the voltmeter has very high resistance",
+      "Connect the voltmeter in series after the resistor so it reads the leftover potential",
+      "Connect both leads to the negative terminal of the power supply"
+    ],
+    "correct_index": 1,
+    "explanation": "Voltmeters measure the difference in potential between two distinct points, requiring a parallel connection. High internal resistance ensures negligible current is diverted from the main branch.",
+    "distractor_misconceptions": {
+      "0": "voltmeter_in_series",
+      "2": "voltmeter_in_series",
+      "3": null
+    }
+  },
+  {
+    "id": "q_cell_01",
+    "concept_id": "cell_and_emf",
+    "difficulty": 2,
+    "question": "What is the primary role of a dry chemical cell in an electric circuit?",
+    "options": [
+      "To continuously produce and inject new electrons into an empty wire",
+      "To maintain a steady potential difference across its terminals by chemical reaction, doing work on charges",
+      "To supply an unalterable, fixed current regardless of the circuit resistance",
+      "To collect and destroy electrons that have finished circulating"
+    ],
+    "correct_index": 1,
+    "explanation": "A cell acts as an electrical pump: chemical reactions inside maintain a potential difference between its terminals, providing the energy (EMF) that drives charges through the external circuit.",
+    "distractor_misconceptions": {
+      "0": "switch_injects_electricity",
+      "2": "battery_const_curr",
+      "3": "curr_used_up"
+    }
+  },
+  {
+    "id": "q_ohms_01",
+    "concept_id": "ohms_law",
+    "difficulty": 2,
+    "question": "According to Ohm's Law, what is the mathematical relationship between potential difference (V), current (I), and resistance (R) in an ohmic metallic conductor at constant temperature?",
+    "options": [
+      "I = V × R",
+      "V = I × R",
+      "R = V × I",
+      "V = I / R"
+    ],
+    "correct_index": 1,
+    "explanation": "Ohm's law states that V ∝ I at constant temperature, yielding V = IR (or I = V / R).",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_ohms_02",
+    "concept_id": "ohms_law",
+    "difficulty": 2,
+    "question": "A 12 V car battery is connected to a circuit. When the load resistance is 4 Ω, the current is 3 A. If the resistance is doubled to 8 Ω, what is the new current?",
+    "options": [
+      "Still 3 A, because the battery always provides its fixed rated current",
+      "1.5 A, because current is inversely proportional to resistance for a fixed voltage",
+      "6 A, because higher resistance requires more current to get through",
+      "0.375 A, because current drops with the square of resistance"
+    ],
+    "correct_index": 1,
+    "explanation": "With a constant voltage source V = 12 V, I = V / R = 12 V / 8 Ω = 1.5 A. Batteries maintain voltage, not fixed current!",
+    "distractor_misconceptions": {
+      "0": "battery_const_curr",
+      "2": "higher_res_more_curr",
+      "3": null
+    }
+  },
+  {
+    "id": "q_vi_01",
+    "concept_id": "v_i_graph",
+    "difficulty": 3,
+    "question": "In an experiment verifying Ohm's law, a student plots Potential Difference (V) on the vertical y-axis against Current (I) on the horizontal x-axis. What does the slope of this line represent?",
+    "options": [
+      "Electric Power dissipated",
+      "Electrical Resistance (R)",
+      "Specific Resistivity (ρ)",
+      "Reciprocal of resistance (Conductance)"
+    ],
+    "correct_index": 1,
+    "explanation": "Slope = Δy / Δx = ΔV / ΔI. From Ohm's law V = IR, ΔV / ΔI = R (Resistance). If I was on y and V on x, the slope would be 1/R.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_res_01",
+    "concept_id": "electrical_resistance",
+    "difficulty": 2,
+    "question": "Microscopically, what causes electrical resistance inside a metallic conductor like copper?",
+    "options": [
+      "Electrons get stuck permanently inside the atomic nuclei",
+      "Drifting electrons repeatedly collide with the vibrating positive lattice ions of the metal",
+      "The copper metal actively repels current because it hates electricity",
+      "The battery runs out of push as current reaches the middle of the wire"
+    ],
+    "correct_index": 1,
+    "explanation": "As electrons accelerate under an electric field, they frequently collide with positive ions of the metal lattice, losing kinetic energy which converts to thermal energy. This opposition is electrical resistance.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": null,
+      "3": "curr_used_up"
+    }
+  },
+  {
+    "id": "q_factors_01",
+    "concept_id": "factors_affecting_resistance",
+    "difficulty": 3,
+    "question": "A cylindrical wire of length L and cross-sectional area A has resistance R. If its length is doubled to 2L while keeping the area constant, its new resistance will be:",
+    "options": [
+      "R / 2",
+      "2R",
+      "4R",
+      "R"
+    ],
+    "correct_index": 1,
+    "explanation": "Resistance is directly proportional to length: R ∝ L. Doubling the length while keeping the area unchanged doubles the resistance to 2R.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": "res_independent_geometry",
+      "3": "res_independent_geometry"
+    }
+  },
+  {
+    "id": "q_factors_02",
+    "concept_id": "factors_affecting_resistance",
+    "difficulty": 3,
+    "question": "Two copper wires of equal length have diameters 1 mm and 2 mm respectively. How does the resistance of the thicker wire compare to that of the thinner wire?",
+    "options": [
+      "The thicker wire has 4 times more resistance because it contains 4 times more atoms to bump into",
+      "The thicker wire has 1/4 the resistance because its cross-sectional area is 4 times larger",
+      "Both have equal resistance because both are made of pure copper",
+      "The thicker wire has half the resistance"
+    ],
+    "correct_index": 1,
+    "explanation": "Cross-sectional area A = π(d/2)². Doubling the diameter quadruples area (A2 = 4 A1). Since R ∝ 1/A, the thicker wire has 1/4 the resistance.",
+    "distractor_misconceptions": {
+      "0": "thick_wire_more_res",
+      "2": "res_independent_geometry",
+      "3": null
+    }
+  },
+  {
+    "id": "q_resistivity_01",
+    "concept_id": "resistivity",
+    "difficulty": 3,
+    "question": "What is the SI unit of electrical resistivity (ρ), and what factors does it depend upon for a given conductor?",
+    "options": [
+      "Ohm; depends on length and area",
+      "Ohm-meter (Ω·m); depends solely on nature of material and temperature",
+      "Ohm / meter; depends on the applied voltage",
+      "Watt / Ampere; depends on current flowing"
+    ],
+    "correct_index": 1,
+    "explanation": "Resistivity ρ = R × (A / L), with SI unit Ω · m² / m = Ω·m. It is a characteristic material property that does NOT depend on the shape or dimensions of the conductor.",
+    "distractor_misconceptions": {
+      "0": "res_independent_geometry",
+      "2": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_temp_01",
+    "concept_id": "temperature_dependence",
+    "difficulty": 3,
+    "question": "What happens to the resistance of a pure metal conductor when its temperature is increased?",
+    "options": [
+      "It decreases because heat gives electrons more energy to fly faster",
+      "It increases because the positive metal ions vibrate more vigorously, causing more frequent collisions with electrons",
+      "It remains exactly constant because resistance is fixed by the manufacturer",
+      "It drops to zero instantaneously"
+    ],
+    "correct_index": 1,
+    "explanation": "Elevated temperature causes positive metal ions to vibrate with greater amplitude, increasing the probability and frequency of electron collisions, thus increasing electrical resistance.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": "res_independent_geometry",
+      "3": null
+    }
+  },
+  {
+    "id": "q_series_01",
+    "concept_id": "series_circuits",
+    "difficulty": 3,
+    "question": "Three resistors of 2 Ω, 4 Ω, and 6 Ω are connected in series with a 12 V battery. Which statement about the current through each resistor is TRUE?",
+    "options": [
+      "The 2 Ω resistor gets the most current because it has the lowest resistance",
+      "The current is strictly identical through all three resistors (1 A through each)",
+      "The 6 Ω resistor consumes most of the current, leaving very little for the others",
+      "The current through the middle resistor is the average of the two outer ones"
+    ],
+    "correct_index": 1,
+    "explanation": "In a series circuit, there is only a single path for charge. Total resistance Rs = 2 + 4 + 6 = 12 Ω. Current I = 12 V / 12 Ω = 1 A through every resistor.",
+    "distractor_misconceptions": {
+      "0": "higher_res_more_curr",
+      "2": "curr_used_up",
+      "3": null
+    }
+  },
+  {
+    "id": "q_series_eq_01",
+    "concept_id": "series_equivalent_resistance",
+    "difficulty": 3,
+    "question": "Three identical resistors each of resistance R are connected in series. What is the equivalent resistance of the combination?",
+    "options": [
+      "R / 3",
+      "3R",
+      "R + 3",
+      "3 / R"
+    ],
+    "correct_index": 1,
+    "explanation": "In series, equivalent resistance is the simple sum: Rs = R1 + R2 + R3 = R + R + R = 3R.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_parallel_01",
+    "concept_id": "parallel_circuits",
+    "difficulty": 3,
+    "question": "Two resistors of 10 Ω and 20 Ω are connected in parallel across a 6 V battery. What is the potential difference across the 20 Ω resistor?",
+    "options": [
+      "4 V, because the higher resistor gets more voltage",
+      "Exactly 6 V, because all parallel branches share the same terminal potential difference",
+      "2 V, because voltage divides in parallel",
+      "0 V, because current takes the path of least resistance through 10 Ω only"
+    ],
+    "correct_index": 1,
+    "explanation": "In a parallel circuit, both resistors are connected directly between the same two common nodes. Hence, the potential difference across each branch is identical and equals 6 V.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_parallel_eq_01",
+    "concept_id": "parallel_equivalent_resistance",
+    "difficulty": 4,
+    "question": "Two resistors of 6 Ω and 3 Ω are connected in parallel. What is the equivalent resistance of the combination?",
+    "options": [
+      "9 Ω, because you add 6 Ω and 3 Ω together",
+      "2 Ω, because 1/Rp = 1/6 + 1/3 = 3/6 = 1/2",
+      "4.5 Ω, the average of 6 and 3",
+      "18 Ω, because parallel resistors multiply"
+    ],
+    "correct_index": 1,
+    "explanation": "1/Rp = 1/6 + 1/3 = 1/6 + 2/6 = 3/6 = 1/2 => Rp = 2 Ω. In parallel, equivalent resistance is always strictly less than the smallest individual resistor (2 Ω < 3 Ω).",
+    "distractor_misconceptions": {
+      "0": "parallel_higher_res",
+      "2": null,
+      "3": "parallel_higher_res"
+    }
+  },
+  {
+    "id": "q_series_vs_par_01",
+    "concept_id": "series_vs_parallel_comparison",
+    "difficulty": 4,
+    "question": "Why are domestic household appliances always connected in parallel rather than in series?",
+    "options": [
+      "Parallel connection forces all appliances to share a single switch",
+      "Each appliance receives the full mains voltage (220 V) and can operate independently if another appliance is switched off or fails",
+      "Parallel circuits use less total current, preventing bulbs from lighting up",
+      "Series circuits would make all bulbs shine 10 times brighter than normal"
+    ],
+    "correct_index": 1,
+    "explanation": "In parallel, each appliance receives the rated 220 V and has an independent switch. If one fails (breaks the branch), the other branches continue operating unaffected.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": null,
+      "3": "series_parallel_same_bright"
+    }
+  },
+  {
+    "id": "q_joule_01",
+    "concept_id": "joules_law_of_heating",
+    "difficulty": 3,
+    "question": "According to Joule's law of heating, the heat produced in a resistor of resistance R carrying current I for time t is given by:",
+    "options": [
+      "H = I × R × t",
+      "H = I^2 × R × t",
+      "H = I × R^2 × t",
+      "H = V^2 × R × t"
+    ],
+    "correct_index": 1,
+    "explanation": "Joule's law states that H = I^2 R t. Since V = IR, this can also be expressed as H = VIt or H = (V^2 / R) t.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_heat_app_01",
+    "concept_id": "heating_applications",
+    "difficulty": 2,
+    "question": "Why is nichrome wire chosen as the heating element in electric irons and toasters instead of copper?",
+    "options": [
+      "Nichrome has high resistivity and does not oxidize (burn) easily even at high temperatures",
+      "Nichrome is a superconductor with zero resistance",
+      "Nichrome creates new electrons when heated",
+      "Copper has much higher resistivity than nichrome"
+    ],
+    "correct_index": 0,
+    "explanation": "Nichrome (an alloy of Ni, Cr, Mn, Fe) has very high resistivity (~60 times copper) and does not oxidize or melt at red hot temperatures, producing efficient Joule heating.",
+    "distractor_misconceptions": {
+      "1": null,
+      "2": "switch_injects_electricity",
+      "3": null
+    }
+  },
+  {
+    "id": "q_kwh_01",
+    "concept_id": "electric_energy_kwh",
+    "difficulty": 3,
+    "question": "An electric refrigerator rated 400 W operates 8 hours/day. What is the total energy consumed in 30 days in kilowatt-hours (kWh)?",
+    "options": [
+      "96 kWh",
+      "960 kWh",
+      "9.6 kWh",
+      "3200 kWh"
+    ],
+    "correct_index": 0,
+    "explanation": "Daily energy = 400 W × 8 h = 3200 Wh = 3.2 kWh. Over 30 days: 3.2 kWh × 30 = 96 kWh.",
+    "distractor_misconceptions": {
+      "1": null,
+      "2": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_power_01",
+    "concept_id": "electric_power_formulas",
+    "difficulty": 3,
+    "question": "Which of the following expressions does NOT correctly represent electric power P in a circuit?",
+    "options": [
+      "P = V × I",
+      "P = I^2 × R",
+      "P = I × R^2",
+      "P = V^2 / R"
+    ],
+    "correct_index": 2,
+    "explanation": "P = VI. Substituting V = IR gives P = (IR)I = I^2 R. Substituting I = V/R gives P = V(V/R) = V^2 / R. Therefore, P = I R^2 is dimensionally incorrect.",
+    "distractor_misconceptions": {
+      "0": null,
+      "1": null,
+      "3": null
+    }
+  },
+  {
+    "id": "q_bulb_ratings_01",
+    "concept_id": "bulb_power_ratings",
+    "difficulty": 4,
+    "question": "Two electric bulbs are rated (220 V, 100 W) and (220 V, 40 W). Which bulb has higher filament resistance?",
+    "options": [
+      "The 100 W bulb, because higher power requires higher resistance",
+      "The 40 W bulb, because R = V_rated^2 / P_rated, so lower power rating implies higher resistance",
+      "Both have equal resistance because they are rated for the same 220 V",
+      "Resistance cannot be determined without measuring current"
+    ],
+    "correct_index": 1,
+    "explanation": "At rated voltage, R = V^2 / P. The 40 W bulb has R = 220^2 / 40 = 1210 Ω, while the 100 W bulb has R = 220^2 / 100 = 484 Ω. Lower power rating means thinner filament and higher resistance!",
+    "distractor_misconceptions": {
+      "0": "higher_res_more_curr",
+      "2": "power_equals_energy",
+      "3": null
+    }
+  },
+  {
+    "id": "q_fuse_01",
+    "concept_id": "electric_fuse_safety",
+    "difficulty": 2,
+    "question": "Why is an electric fuse rated for 5 A connected in series with the live wire of an appliance?",
+    "options": [
+      "To increase the voltage entering the appliance",
+      "If current exceeds 5 A, excessive Joule heating melts the low-melting-point fuse wire, interrupting the circuit before damage occurs",
+      "To store electricity and inject it when the battery drops",
+      "To attract lightning strikes safely away from the appliance"
+    ],
+    "correct_index": 1,
+    "explanation": "A fuse is a sacrificial protective device. High current produces Joule heat (H = I^2 R t), melting the alloy wire and breaking the circuit to prevent fire and equipment destruction.",
+    "distractor_misconceptions": {
+      "0": null,
+      "2": "switch_injects_electricity",
+      "3": null
+    }
+  },
+  {
+    "id": "q_domestic_01",
+    "concept_id": "domestic_wiring_earthing",
+    "difficulty": 3,
+    "question": "What is the primary function of connecting the green earth wire to the metallic body of an electric iron or washing machine?",
+    "options": [
+      "To carry half the electricity needed to run the motor",
+      "To provide a very low-resistance path to the ground in case of an insulation leak, preventing dangerous electric shock to the user",
+      "To prevent the appliance from consuming electric energy from the meter",
+      "To convert 220 V AC into 12 V DC"
+    ],
+    "correct_index": 1,
+    "explanation": "If the live wire accidentally contacts the metal chassis, earthing routes the fault current straight into the earth, tripping the fuse/breaker and keeping the appliance surface at zero safe potential.",
+    "distractor_misconceptions": {
+      "0": "ground_wire_carries_load",
+      "2": null,
+      "3": null
+    }
+  }
+]

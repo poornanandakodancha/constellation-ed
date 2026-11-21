@@ -3,25 +3,113 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #030712;
+  --foreground: #f8fafc;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  overflow-x: hidden;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Cosmic Animations */
+@keyframes flarePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+    box-shadow: 0 0 15px 4px rgba(239, 68, 68, 0.7), 0 0 30px 8px rgba(220, 38, 38, 0.4);
   }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+    box-shadow: 0 0 25px 8px rgba(239, 68, 68, 0.95), 0 0 45px 15px rgba(220, 38, 38, 0.65);
+  }
+}
+
+@keyframes starPulseDue {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes celestialGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.7));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(129, 140, 248, 0.95));
+  }
+}
+
+@keyframes nebulaFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.05);
+  }
+}
+
+.animate-flare {
+  animation: flarePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-due-pulse {
+  animation: starPulseDue 2.5s ease-in-out infinite;
+}
+
+.animate-celestial {
+  animation: celestialGlow 3s ease-in-out infinite;
+}
+
+.animate-nebula {
+  animation: nebulaFloat 12s ease-in-out infinite;
+}
+
+/* Glassmorphism */
+.cosmic-glass {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cosmic-glass-hover:hover {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.cosmic-card {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 27, 75, 0.4) 100%);
+  border: 1px solid rgba(147, 197, 253, 0.12);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+}
+
+.flare-card {
+  background: linear-gradient(135deg, rgba(69, 10, 10, 0.85) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  box-shadow: 0 0 20px -3px rgba(220, 38, 38, 0.3);
+}
+
+/* Custom Scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
 }

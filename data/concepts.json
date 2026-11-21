@@ -1,0 +1,292 @@
+[
+  {
+    "id": "electric_charge",
+    "name": "Electric Charge & Conservation",
+    "cluster": "Electrostatics",
+    "prerequisites": [],
+    "difficulty": 1,
+    "short_explanation": "Charge is an intrinsic property of matter (positive or negative). Like charges repel, opposite charges attract, and total charge is conserved (Q = ne).",
+    "x_hint": 100,
+    "y_hint": 120
+  },
+  {
+    "id": "conductors_insulators",
+    "name": "Conductors and Insulators",
+    "cluster": "Electrostatics",
+    "prerequisites": ["electric_charge"],
+    "difficulty": 1,
+    "short_explanation": "Conductors contain abundant free electrons that readily migrate, whereas insulators hold electrons tightly in chemical bonds.",
+    "x_hint": 120,
+    "y_hint": 220
+  },
+  {
+    "id": "coulombs_law_concept",
+    "name": "Electrostatic Force",
+    "cluster": "Electrostatics",
+    "prerequisites": ["electric_charge"],
+    "difficulty": 2,
+    "short_explanation": "The electrostatic force between two static charges is directly proportional to the product of charges and inversely proportional to the square of the separation distance.",
+    "x_hint": 80,
+    "y_hint": 320
+  },
+  {
+    "id": "electric_current",
+    "name": "Electric Current Definition",
+    "cluster": "Current & Circuits",
+    "prerequisites": ["electric_charge"],
+    "difficulty": 2,
+    "short_explanation": "Electric current is the net rate of flow of electric charge across a cross-section: I = Q / t, measured in Amperes (A = C/s).",
+    "x_hint": 240,
+    "y_hint": 100
+  },
+  {
+    "id": "electric_circuit",
+    "name": "Electric Circuit & Continuity",
+    "cluster": "Current & Circuits",
+    "prerequisites": ["conductors_insulators", "electric_current"],
+    "difficulty": 1,
+    "short_explanation": "A continuous and closed conducting loop through which electric current can flow between power terminals.",
+    "x_hint": 240,
+    "y_hint": 200
+  },
+  {
+    "id": "ammeter_measurement",
+    "name": "Ammeter Measurement",
+    "cluster": "Current & Circuits",
+    "prerequisites": ["electric_circuit"],
+    "difficulty": 2,
+    "short_explanation": "An ammeter measures electric current and must always be connected in SERIES. It possesses near-zero internal resistance to avoid reducing loop current.",
+    "x_hint": 230,
+    "y_hint": 300
+  },
+  {
+    "id": "drift_velocity_electron_flow",
+    "name": "Drift Velocity & Electron Flow",
+    "cluster": "Current & Circuits",
+    "prerequisites": ["electric_current"],
+    "difficulty": 3,
+    "short_explanation": "Electrons drift very slowly (mm/s) toward positive terminal, while the electric field establishes nearly at the speed of light throughout the conductor.",
+    "x_hint": 200,
+    "y_hint": 400
+  },
+  {
+    "id": "electric_potential",
+    "name": "Electric Potential",
+    "cluster": "Potential Difference",
+    "prerequisites": ["electric_charge"],
+    "difficulty": 2,
+    "short_explanation": "Electric potential at a point is the work done per unit positive charge in bringing it from infinity to that point in an electric field.",
+    "x_hint": 380,
+    "y_hint": 100
+  },
+  {
+    "id": "potential_difference",
+    "name": "Potential Difference (Voltage)",
+    "cluster": "Potential Difference",
+    "prerequisites": ["electric_potential"],
+    "difficulty": 2,
+    "short_explanation": "The work done to move a unit positive charge between two points: V = W / Q, measured in Volts (1 V = 1 Joule / Coulomb).",
+    "x_hint": 380,
+    "y_hint": 200
+  },
+  {
+    "id": "voltmeter_measurement",
+    "name": "Voltmeter Connection",
+    "cluster": "Potential Difference",
+    "prerequisites": ["potential_difference", "electric_circuit"],
+    "difficulty": 2,
+    "short_explanation": "A voltmeter measures potential difference across two points and must be connected in PARALLEL. It has exceptionally high resistance so minimal current passes through it.",
+    "x_hint": 360,
+    "y_hint": 300
+  },
+  {
+    "id": "cell_and_emf",
+    "name": "Chemical Cell & EMF",
+    "cluster": "Potential Difference",
+    "prerequisites": ["potential_difference"],
+    "difficulty": 2,
+    "short_explanation": "A cell maintains continuous potential difference across its terminals by converting chemical energy into electrical energy, driving charge movement.",
+    "x_hint": 390,
+    "y_hint": 400
+  },
+  {
+    "id": "ohms_law",
+    "name": "Ohm's Law",
+    "cluster": "Resistance & Ohm's Law",
+    "prerequisites": ["electric_current", "potential_difference"],
+    "difficulty": 2,
+    "short_explanation": "At constant temperature, current flowing through a metallic conductor is directly proportional to the potential difference across its ends: V = IR.",
+    "x_hint": 520,
+    "y_hint": 150
+  },
+  {
+    "id": "v_i_graph",
+    "name": "V-I Graph & Characteristics",
+    "cluster": "Resistance & Ohm's Law",
+    "prerequisites": ["ohms_law"],
+    "difficulty": 3,
+    "short_explanation": "For an ohmic conductor, the V vs I plot is a straight line through the origin. The slope of V vs I equals resistance R.",
+    "x_hint": 520,
+    "y_hint": 260
+  },
+  {
+    "id": "electrical_resistance",
+    "name": "Electrical Resistance",
+    "cluster": "Resistance & Ohm's Law",
+    "prerequisites": ["ohms_law"],
+    "difficulty": 2,
+    "short_explanation": "The opposition offered by a conductor to the flow of electric charges due to frequent collisions between drifting electrons and positive metal ions.",
+    "x_hint": 540,
+    "y_hint": 360
+  },
+  {
+    "id": "factors_affecting_resistance",
+    "name": "Geometric Factors of Resistance",
+    "cluster": "Resistance & Ohm's Law",
+    "prerequisites": ["electrical_resistance"],
+    "difficulty": 3,
+    "short_explanation": "Resistance R is directly proportional to length L and inversely proportional to cross-sectional area A: R = ρ (L / A).",
+    "x_hint": 560,
+    "y_hint": 460
+  },
+  {
+    "id": "resistivity",
+    "name": "Resistivity (Specific Resistance)",
+    "cluster": "Resistance & Ohm's Law",
+    "prerequisites": ["factors_affecting_resistance"],
+    "difficulty": 3,
+    "short_explanation": "Resistivity (ρ) is an intrinsic material property independent of dimensions, representing resistance of a 1 m cube. Measured in Ohm-meters (Ω·m).",
+    "x_hint": 580,
+    "y_hint": 560
+  },
+  {
+    "id": "temperature_dependence",
+    "name": "Temperature Effect on Resistance",
+    "cluster": "Resistance & Ohm's Law",
+    "prerequisites": ["resistivity"],
+    "difficulty": 3,
+    "short_explanation": "For pure metals, resistance increases with temperature as ionic lattice vibrations intensify, creating more electron scattering.",
+    "x_hint": 600,
+    "y_hint": 660
+  },
+  {
+    "id": "series_circuits",
+    "name": "Series Combination: Current",
+    "cluster": "Combinations",
+    "prerequisites": ["ohms_law", "electric_circuit"],
+    "difficulty": 3,
+    "short_explanation": "In a series circuit, there is only a single path: the current through every component is strictly identical (I = I1 = I2 = ...).",
+    "x_hint": 700,
+    "y_hint": 140
+  },
+  {
+    "id": "series_equivalent_resistance",
+    "name": "Series Equivalent Resistance",
+    "cluster": "Combinations",
+    "prerequisites": ["series_circuits"],
+    "difficulty": 3,
+    "short_explanation": "Total equivalent resistance in series is the algebraic sum: Rs = R1 + R2 + ... + Rn. It is always greater than the largest individual resistance.",
+    "x_hint": 720,
+    "y_hint": 240
+  },
+  {
+    "id": "parallel_circuits",
+    "name": "Parallel Combination: Voltage",
+    "cluster": "Combinations",
+    "prerequisites": ["ohms_law", "electric_circuit"],
+    "difficulty": 3,
+    "short_explanation": "In parallel combination, all components share the same two junction nodes, meaning potential difference across each branch is identical (V = V1 = V2 = ...).",
+    "x_hint": 700,
+    "y_hint": 350
+  },
+  {
+    "id": "parallel_equivalent_resistance",
+    "name": "Parallel Equivalent Resistance",
+    "cluster": "Combinations",
+    "prerequisites": ["parallel_circuits"],
+    "difficulty": 4,
+    "short_explanation": "Reciprocal of equivalent resistance is the sum of reciprocals: 1/Rp = 1/R1 + 1/R2 + ... Total resistance is always less than the smallest individual resistance.",
+    "x_hint": 730,
+    "y_hint": 460
+  },
+  {
+    "id": "series_vs_parallel_comparison",
+    "name": "Series vs Parallel Dynamics",
+    "cluster": "Combinations",
+    "prerequisites": ["series_equivalent_resistance", "parallel_equivalent_resistance"],
+    "difficulty": 4,
+    "short_explanation": "Parallel circuits allow independent appliance control without voltage drop. Series circuits fail completely if any single component breaks.",
+    "x_hint": 750,
+    "y_hint": 570
+  },
+  {
+    "id": "joules_law_of_heating",
+    "name": "Joule's Law of Heating",
+    "cluster": "Heating & Energy",
+    "prerequisites": ["ohms_law", "potential_difference"],
+    "difficulty": 3,
+    "short_explanation": "Heat produced in a resistor is proportional to square of current, resistance, and time: H = I^2 R t = V I t = (V^2 / R) t.",
+    "x_hint": 860,
+    "y_hint": 160
+  },
+  {
+    "id": "heating_applications",
+    "name": "Heating Effect Applications",
+    "cluster": "Heating & Energy",
+    "prerequisites": ["joules_law_of_heating"],
+    "difficulty": 2,
+    "short_explanation": "Employed in electric heaters, toasters (nichrome wire with high resistivity and melting point) and tungsten filaments in incandescent bulbs.",
+    "x_hint": 870,
+    "y_hint": 270
+  },
+  {
+    "id": "electric_energy_kwh",
+    "name": "Commercial Unit of Energy (kWh)",
+    "cluster": "Heating & Energy",
+    "prerequisites": ["joules_law_of_heating"],
+    "difficulty": 3,
+    "short_explanation": "The commercial electrical energy unit is kilowatt-hour (kWh), commonly known as a 'unit'. 1 kWh = 1000 W × 3600 s = 3.6 × 10^6 Joules.",
+    "x_hint": 890,
+    "y_hint": 380
+  },
+  {
+    "id": "electric_power_formulas",
+    "name": "Electric Power Formulas",
+    "cluster": "Power & Safety",
+    "prerequisites": ["ohms_law", "joules_law_of_heating"],
+    "difficulty": 3,
+    "short_explanation": "Electric power is the rate at which electrical energy is consumed: P = V × I = I^2 R = V^2 / R, measured in Watts (W = J/s).",
+    "x_hint": 990,
+    "y_hint": 180
+  },
+  {
+    "id": "bulb_power_ratings",
+    "name": "Appliance Ratings & Brightness",
+    "cluster": "Power & Safety",
+    "prerequisites": ["electric_power_formulas", "series_vs_parallel_comparison"],
+    "difficulty": 4,
+    "short_explanation": "A bulb marked (100 W, 220 V) has fixed resistance R = V_rated^2 / P_rated. Its actual brightness depends on actual power consumed under the circuit's current or voltage.",
+    "x_hint": 1010,
+    "y_hint": 290
+  },
+  {
+    "id": "electric_fuse_safety",
+    "name": "Electric Fuse Safety",
+    "cluster": "Power & Safety",
+    "prerequisites": ["joules_law_of_heating", "electric_circuit"],
+    "difficulty": 2,
+    "short_explanation": "A safety device with a low melting point conductor connected in series with the live wire. Excessive current causes Joule heating to melt the fuse wire, breaking the circuit.",
+    "x_hint": 1020,
+    "y_hint": 400
+  },
+  {
+    "id": "domestic_wiring_earthing",
+    "name": "Domestic Circuits & Earthing",
+    "cluster": "Power & Safety",
+    "prerequisites": ["electric_fuse_safety", "parallel_circuits"],
+    "difficulty": 3,
+    "short_explanation": "Household circuits run appliances in parallel at 220 V. Earthing provides a zero-resistance safe path to ground during insulation breakdown, preventing lethal shocks.",
+    "x_hint": 1040,
+    "y_hint": 510
+  }
+]
