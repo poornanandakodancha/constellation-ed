@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import { ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
+import { ZoomIn, ZoomOut, Maximize2, Sparkles } from "lucide-react";
 
 export interface ConstellationConcept {
   concept_id: string;
@@ -46,6 +46,78 @@ export function ConstellationCanvas({
   const [hoveredConcept, setHoveredConcept] = useState<ConstellationConcept | null>(null);
   const [zoom, setZoom] = useState(1);
 
+  // Shooting-star & soft sound-free glow pulse state
+  const [elevatedStar, setElevatedStar] = useState<{
+    id: string;
+    name: string;
+    x: number;
+    y: number;
+    p_mastery: number;
+  } | null>(null);
+  const [shootingStar, setShootingStar] = useState<{
+    id: number;
+    startX: number;
+    startY: number;
+    endX: number;
+    endY: number;
+  } | null>(null);
+
+  const prevMasteriesRef = useRef<Map<string, number>>(new Map());
+
+  const triggerElevationEffect = (concept: ConstellationConcept) => {
+    const targetX = concept.x_hint || 500;
+    const targetY = concept.y_hint || 350;
+
+    setElevatedStar({
+      id: concept.concept_id,
+      name: concept.name,
+      x: targetX,
+      y: targetY,
+      p_mastery: concept.p_mastery
+    });
+
+    setShootingStar({
+      id: Date.now(),
+      startX: Math.max(30, targetX - 220),
+      startY: Math.max(30, targetY - 140),
+      endX: targetX,
+      endY: targetY
+    });
+
+    setTimeout(() => {
+      setShootingStar(null);
+    }, 2200);
+
+    setTimeout(() => {
+      setElevatedStar(null);
+    }, 4500);
+  };
+
+  // Detect when any star's mastery increases
+  useEffect(() => {
+    if (!concepts || concepts.length === 0) return;
+    const prev = prevMasteriesRef.current;
+
+    let highestBoost = 0;
+    let boostedConcept: ConstellationConcept | null = null;
+
+    concepts.forEach((c) => {
+      const oldVal = prev.get(c.concept_id);
+      if (oldVal !== undefined && c.p_mastery > oldVal + 0.02) {
+        const diff = c.p_mastery - oldVal;
+        if (diff > highestBoost) {
+          highestBoost = diff;
+          boostedConcept = c;
+        }
+      }
+      prev.set(c.concept_id, c.p_mastery);
+    });
+
+    if (boostedConcept) {
+      triggerElevationEffect(boostedConcept);
+    }
+  }, [concepts]);
+
   const conceptMap = useMemo(() => {
     return new Map<string, ConstellationConcept>(concepts.map((c) => [c.concept_id, c]));
   }, [concepts]);
@@ -82,7 +154,7 @@ export function ConstellationCanvas({
       <div className="absolute top-4 left-4 z-10 flex flex-wrap items-center gap-3 pointer-events-auto">
         <div className="px-3 py-1.5 rounded-xl cosmic-glass flex items-center gap-2 text-xs text-slate-300">
           <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]" />
-          <span>Star Size & Brightness = Mastery ($P(L)$)</span>
+          <span>Star Size & Brightness = Mastery P(L)</span>
         </div>
         <div className="px-3 py-1.5 rounded-xl cosmic-glass flex items-center gap-2 text-xs text-rose-300">
           <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-flare" />
@@ -95,7 +167,18 @@ export function ConstellationCanvas({
       </div>
 
       {/* Controls Overlay */}
-      <div className="absolute top-4 right-4 z-10 flex items-center gap-1 cosmic-glass p-1 rounded-xl pointer-events-auto">
+      <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 cosmic-glass p-1 rounded-xl pointer-events-auto">
+        <button
+          onClick={() => {
+            const randomConcept = concepts[Math.floor(Math.random() * concepts.length)];
+            if (randomConcept) triggerElevationEffect(randomConcept);
+          }}
+          title="Simulate Shooting Star & Soft Glow Pulse"
+          className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-cyan-300 hover:text-white hover:bg-slate-800/80 rounded-lg transition-all border border-cyan-500/20"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+          <span className="hidden sm:inline">Shooting Star</span>
+        </button>
         <button
           onClick={() => setZoom((z) => Math.min(1.5, z + 0.15))}
           title="Zoom In"
@@ -118,6 +201,17 @@ export function ConstellationCanvas({
           <Maximize2 className="w-4 h-4" />
         </button>
       </div>
+
+      {/* Floating Elevation Toast */}
+      {elevatedStar && (
+        <div className="absolute top-16 left-4 z-20 flex items-center gap-2.5 px-4 py-2 rounded-xl bg-slate-900/95 border border-emerald-500/50 shadow-[0_0_20px_rgba(52,211,153,0.3)] text-xs font-bold text-white transition-all">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+          <span>
+            🌠 Shooting Star! &ldquo;{elevatedStar.name}&rdquo; mastery ascended to{" "}
+            <span className="text-emerald-400">{(elevatedStar.p_mastery * 100).toFixed(0)}%</span>!
+          </span>
+        </div>
+      )}
 
       {/* SVG Interactive Constellation Sky */}
       <div className="w-full overflow-x-auto overflow-y-hidden cursor-crosshair">
@@ -155,6 +249,14 @@ export function ConstellationCanvas({
               <stop offset="65%" stopColor="#b91c1c" stopOpacity="0.5" />
               <stop offset="100%" stopColor="#7f1d1d" stopOpacity="0" />
             </radialGradient>
+
+            {/* Shooting Star Comet Tail */}
+            <linearGradient id="cometTail" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+              <stop offset="40%" stopColor="#38bdf8" stopOpacity="0.4" />
+              <stop offset="85%" stopColor="#34d399" stopOpacity="0.85" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="1" />
+            </linearGradient>
 
             <filter id="glowFilter" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
@@ -232,11 +334,35 @@ export function ConstellationCanvas({
             })}
           </g>
 
+          {/* Shooting Star Animation Overlay */}
+          {shootingStar && (
+            <g className="pointer-events-none">
+              <line
+                x1={shootingStar.startX}
+                y1={shootingStar.startY}
+                x2={shootingStar.endX}
+                y2={shootingStar.endY}
+                stroke="url(#cometTail)"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                opacity="0.9"
+              />
+              <circle
+                cx={shootingStar.endX}
+                cy={shootingStar.endY}
+                r="4.5"
+                fill="#ffffff"
+                filter="url(#glowFilter)"
+              />
+            </g>
+          )}
+
           {/* Star Nodes */}
           {concepts.map((concept) => {
             const x = concept.x_hint || 200;
             const y = concept.y_hint || 200;
             const isSelected = selectedConceptId === concept.concept_id;
+            const isElevated = elevatedStar?.id === concept.concept_id;
 
             // Size scales with mastery
             const baseRadius = 5 + concept.p_mastery * 9; // 5 to 14
@@ -261,6 +387,32 @@ export function ConstellationCanvas({
                 onMouseEnter={() => setHoveredConcept(concept)}
                 onMouseLeave={() => setHoveredConcept(null)}
               >
+                {/* Soft Sound-Free Radiating Glow Pulse Rings (when mastery rises) */}
+                {isElevated && (
+                  <g className="pointer-events-none">
+                    <circle
+                      cx={x}
+                      cy={y}
+                      r={baseRadius * 1.6}
+                      fill="none"
+                      stroke="#38bdf8"
+                      strokeWidth="2.5"
+                      className="animate-star-surge"
+                      style={{ transformOrigin: `${x}px ${y}px` }}
+                    />
+                    <circle
+                      cx={x}
+                      cy={y}
+                      r={baseRadius * 2.2}
+                      fill="none"
+                      stroke="#34d399"
+                      strokeWidth="2"
+                      className="animate-star-surge"
+                      style={{ animationDelay: "0.4s", transformOrigin: `${x}px ${y}px` }}
+                    />
+                  </g>
+                )}
+
                 {/* Active Misconception Red Solar Flare */}
                 {concept.has_misconception && (
                   <g className="animate-flare">

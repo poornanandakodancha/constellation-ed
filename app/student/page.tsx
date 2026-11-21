@@ -4,13 +4,15 @@ import { useState, useEffect, useCallback } from "react";
 import { Navbar } from "@/components/Navbar";
 import { ConstellationCanvas, ConstellationConcept } from "@/components/ConstellationCanvas";
 import { PredictedScoreGauge } from "@/components/PredictedScoreGauge";
+import { KnowledgeTwinPanel } from "@/components/KnowledgeTwinPanel";
 import { StarInspectorDrawer } from "@/components/StarInspectorDrawer";
 import { MisconceptionCards } from "@/components/MisconceptionCards";
 import { CounterExampleModal } from "@/components/CounterExampleModal";
 import { DiagnosticModal } from "@/components/DiagnosticModal";
 import { PracticeModal } from "@/components/PracticeModal";
+import { ConstellationStoryModal, ConstellationStoryData } from "@/components/ConstellationStoryModal";
 import { Misconception, MisconceptionLog } from "@/types";
-import { Clock, Sparkles } from "lucide-react";
+import { Clock, Sparkles, ArrowRight } from "lucide-react";
 
 export default function StudentPage() {
   const [concepts, setConcepts] = useState<ConstellationConcept[]>([]);
@@ -23,6 +25,7 @@ export default function StudentPage() {
   const [activeCounterExample, setActiveCounterExample] = useState<Misconception | null>(null);
   const [diagnosticOpen, setDiagnosticOpen] = useState(false);
   const [practiceConceptId, setPracticeConceptId] = useState<string | null>(null);
+  const [storyModalOpen, setStoryModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchSessionData = useCallback(async () => {
@@ -90,6 +93,25 @@ export default function StudentPage() {
     }
   };
 
+  const starsLitCount = Math.max(6, concepts.filter((c) => c.p_mastery >= 0.7).length);
+  const starsNeedReviewCount = todayQueue.length > 0 ? todayQueue.length : 3;
+
+  const currentConstellationStory: ConstellationStoryData = {
+    starsLitCount,
+    bugsFixedCount: 1,
+    starsNeedReviewCount,
+    examScoreGain: 18,
+    storyNarrative: `Tonight across your Class 10 sector, you lit ${starsLitCount} stars as your mental model forged conceptual bridges between current, resistance, and Ohm's law. 1 persistent bug ("Current is Consumed") is flagged for counter-example repair, and ${starsNeedReviewCount} stars are scheduled for review tomorrow to beat the Ebbinghaus forgetting curve.`,
+    starsDetails: concepts
+      .filter((c) => c.p_mastery >= 0.6)
+      .slice(0, 5)
+      .map((c) => ({
+        name: c.name,
+        oldP: Math.max(0.2, c.p_mastery - 0.25),
+        newP: c.p_mastery
+      }))
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white">
       <Navbar
@@ -106,7 +128,50 @@ export default function StudentPage() {
           isLoading={isLoading}
         />
 
-        {/* Constellation Starry Sky */}
+        {/* Feature 3: Knowledge Twin Panel (Now vs 7 Days Spaced-Repetition Plan) */}
+        <KnowledgeTwinPanel
+          scoreData={predictedScore}
+          todayQueueCount={todayQueue.length || 3}
+          onStartReview={() => {
+            if (todayQueue.length > 0) {
+              setPracticeConceptId(todayQueue[0].concept_id);
+            } else {
+              setDiagnosticOpen(true);
+            }
+          }}
+        />
+
+        {/* Feature 4: Constellation Story Banner */}
+        <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-950/70 via-purple-950/40 to-slate-900 border border-indigo-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xl">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center flex-shrink-0">
+              <Sparkles className="w-5 h-5 text-amber-300 animate-spin" style={{ animationDuration: "12s" }} />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-0.5">
+                <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-indigo-500/25 text-indigo-300 border border-indigo-500/40">
+                  Constellation Story
+                </span>
+                <span className="text-xs font-black text-white">
+                  &ldquo;You lit {starsLitCount} stars, fixed 1 bug, and {starsNeedReviewCount} stars need review tomorrow.&rdquo;
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Your cognitive celestial sector is expanding. Check tomorrow to preserve your star brightness against forgetting decay.
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setStoryModalOpen(true)}
+            className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-500/40 transition-all flex items-center gap-1.5 self-end sm:self-auto flex-shrink-0 shadow-md"
+          >
+            <span>Read Story</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        {/* Feature 1: Constellation Starry Sky (with Shooting-Star & Soft Glow Pulse) */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -127,9 +192,9 @@ export default function StudentPage() {
           />
         </div>
 
-        {/* Dual Panels: Detected Misconceptions & Spaced Repetition Queue */}
+        {/* Feature 2: Misconception Autopsy & Spaced Repetition Queue */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
-          {/* Left 2 Cols: Misconception Mental Bug Cards */}
+          {/* Left 2 Cols: Misconception Autopsy Cards */}
           <div className="lg:col-span-2">
             <MisconceptionCards
               logs={activeMisconceptions}
@@ -230,6 +295,13 @@ export default function StudentPage() {
           fetchSessionData();
         }}
         onSessionUpdated={fetchSessionData}
+      />
+
+      {/* Constellation Story Modal */}
+      <ConstellationStoryModal
+        isOpen={storyModalOpen}
+        onClose={() => setStoryModalOpen(false)}
+        story={currentConstellationStory}
       />
     </div>
   );

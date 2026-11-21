@@ -73,6 +73,57 @@ body {
   animation: nebulaFloat 12s ease-in-out infinite;
 }
 
+/* Shooting Star & Mastery Elevation Animations */
+@keyframes shootingStarTravel {
+  0% {
+    opacity: 0;
+    transform: translate(-140px, -90px);
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(140px, 90px);
+  }
+}
+
+@keyframes starMasterySurge {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+
+@keyframes starAscendShimmer {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+  }
+  50% {
+    transform: scale(1.35);
+    filter: drop-shadow(0 0 20px rgba(52, 211, 153, 1));
+  }
+}
+
+.animate-star-surge {
+  animation: starMasterySurge 1.8s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+}
+
+.animate-star-ascend {
+  animation: starAscendShimmer 2.2s ease-in-out infinite;
+}
+
 /* Glassmorphism */
 .cosmic-glass {
   background: rgba(15, 23, 42, 0.75);

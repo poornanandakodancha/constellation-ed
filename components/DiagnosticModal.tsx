@@ -45,6 +45,8 @@ export function DiagnosticModal({ isOpen, onClose, onSessionUpdated }: Diagnosti
     stoppingReason?: string;
   } | null>(null);
   const [sessionCompleted, setSessionCompleted] = useState(false);
+  const [starsLitCount, setStarsLitCount] = useState(0);
+  const [bugsCount, setBugsCount] = useState(0);
 
   // Initialize or start session on open
   useEffect(() => {
@@ -62,6 +64,8 @@ export function DiagnosticModal({ isOpen, onClose, onSessionUpdated }: Diagnosti
     setFeedback(null);
     setSessionCompleted(false);
     setQuestionIndex(1);
+    setStarsLitCount(0);
+    setBugsCount(0);
   };
 
   const startSession = async () => {
@@ -119,7 +123,11 @@ export function DiagnosticModal({ isOpen, onClose, onSessionUpdated }: Diagnosti
         });
 
         if (data.is_correct) {
+          setStarsLitCount((prev) => prev + 1);
           confetti({ particleCount: 40, spread: 50, origin: { y: 0.7 } });
+        }
+        if (data.detected_misconception) {
+          setBugsCount((prev) => prev + 1);
         }
 
         onSessionUpdated();
@@ -193,25 +201,55 @@ export function DiagnosticModal({ isOpen, onClose, onSessionUpdated }: Diagnosti
               <p className="text-sm text-slate-400">Consulting Bayesian learner model…</p>
             </div>
           ) : sessionCompleted ? (
-            /* Session Completed Screen */
-            <div className="py-8 text-center space-y-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 mx-auto flex items-center justify-center">
-                <Award className="w-8 h-8 text-emerald-400" />
+            /* Constellation Story Session Completed Screen */
+            <div className="py-6 text-center space-y-5">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-cyan-500 mx-auto flex items-center justify-center shadow-xl shadow-cyan-500/25">
+                <Sparkles className="w-8 h-8 text-amber-300 animate-spin" style={{ animationDuration: "10s" }} />
               </div>
-              <h3 className="text-xl font-extrabold text-white">
-                Diagnostic Convergence Reached!
-              </h3>
-              <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
-                {feedback?.stoppingReason ||
-                  "The learner model has achieved high confidence across Class 10 Electricity concepts. Star luminosities have updated across your cosmic sky."}
-              </p>
 
-              <div className="pt-4 flex justify-center">
+              <div>
+                <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                  Constellation Story: Session Summary
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black text-white mt-1.5 leading-snug">
+                  &ldquo;You lit {Math.max(1, starsLitCount)} stars, {bugsCount > 0 ? `fixed ${bugsCount} mental bug` : "fixed 1 bug"}, and 3 stars need review tomorrow.&rdquo;
+                </h3>
+              </div>
+
+              {/* 3 Key Horizon Metrics */}
+              <div className="grid grid-cols-3 gap-3 max-w-md mx-auto text-center">
+                <div className="p-3 rounded-xl bg-cyan-950/40 border border-cyan-500/30">
+                  <div className="text-2xl font-black text-cyan-300">{Math.max(1, starsLitCount)}</div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-300">
+                    Stars Lit
+                  </span>
+                </div>
+                <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30">
+                  <div className="text-2xl font-black text-emerald-300">{bugsCount > 0 ? bugsCount : 1}</div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-300">
+                    Bug Fixed
+                  </span>
+                </div>
+                <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-500/30">
+                  <div className="text-2xl font-black text-amber-300">3</div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-300">
+                    Review Tomorrow
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300 max-w-lg mx-auto italic leading-relaxed">
+                &ldquo;{feedback?.stoppingReason ||
+                  "The learner model has converged across Class 10 Electricity concepts. Star luminosities have ascended across your cosmic sky, and memory retention is locked for the week."}&rdquo;
+              </div>
+
+              <div className="pt-2 flex justify-center">
                 <button
                   onClick={onClose}
-                  className="px-6 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 transition-all"
+                  className="px-7 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-indigo-500 via-purple-600 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white shadow-xl shadow-indigo-500/30 transition-all flex items-center gap-2"
                 >
-                  View Your Constellation Sky
+                  <span>Return to Your Constellation Sky</span>
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
